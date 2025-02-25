@@ -1,0 +1,10 @@
+day len git trong VsCode:
+- git init
+- git remote add origin https://github.com/nhien261203/intern-daily-project.git
+- git add .
+- git commit -m "First commit"
+- git branch
+- git branch -M main
+- git push -u origin main
+
+
