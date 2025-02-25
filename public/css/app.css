@@ -1,0 +1,142 @@
+.navbar-custom {
+    background-color: black;
+    padding: 10px 0;
+}
+.navbar-custom .navbar-brand {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    font-family: 'Brush Script MT', cursive;
+}
+.navbar-custom .nav-link {
+    color: white !important;
+    font-weight: bold;
+}
+.navbar-custom .nav-link:hover {
+    color: yellow !important;
+
+}
+
+/*product*/
+.price {
+    font-size: 18px; /* Kích thước chữ */
+    color: #9C6A4C; /* Màu sắc của giá */
+    margin-bottom: 10px; /* Khoảng cách dưới giá */
+    font-weight: bold;
+}
+
+.btn-buy,
+.btn-xem {
+    background-color: #E2B83E; /* Màu nền của nút */
+    color: white; /* Màu chữ của nút */
+    border: none; /* Không có viền */
+    padding: 10px 20px; /* Khoảng cách bên trong nút */
+    font-size: 16px; /* Kích thước chữ trong nút */
+    cursor: pointer; /* Hiển thị con trỏ khi di chuột */
+    border-radius: 5px; /* Bo góc của nút */
+    transition: background-color 0.3s; /* Hiệu ứng chuyển màu nền */
+}
+
+.btn-buy:hover {
+    background-color: #CDAA31; /* Màu nền khi di chuột vào nút */
+}
+
+footer {
+    background-color: black !important;
+    color: white !important;
+    padding: 50px 0 !important;
+}
+.swiper {
+    width: 100%;
+    height: 100vh;
+}
+
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+}
+
+.swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.btn-gh{
+    position: fixed;
+    top:85%;
+    right: 2%;
+    z-index: 1000 !important;
+    animation: rotateIcon 2s linear infinite; /* Xoay liên tục */
+    width: 60px; /* Điều chỉnh kích thước */
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 50%; /* Tạo hình tròn */
+    background: #ffffff; /* Màu nền */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+}
+@keyframes rotateIcon {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(180deg); /* Xoay nửa vòng */
+    }
+    100% {
+        transform: rotate(0deg); /* Quay lại vị trí ban đầu */
+    }
+}
+.list-group{
+
+    position: fixed;
+}
+.list-group-item{
+    border: none;
+}
+.list-group-item a {
+    text-decoration: none;
+    color: #000;
+
+}
+
+.list-group-item a:hover {
+    text-decoration: underline;
+}
+
+
+/* trang about us */
+
+.about-banner {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.about-banner img {
+    width: 100%;
+}
+
+.about-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2em;
+    font-weight: bold;
+    color: white;
+}
+
+
+.cate{
+    z-index: 6;
+}
+
+.fa-heart{
+    font-size: 0.5rem;
+}
