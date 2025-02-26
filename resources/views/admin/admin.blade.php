@@ -31,6 +31,8 @@
                     <li class="nav-item">
                         <a  class="nav-link" href="{{route('admin.favorite.index')}}"> My Favorites </a>
                     </li>
+
+
                 </ul>
             </div>
 
@@ -44,6 +46,8 @@
             onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-success">
                 Đăng xuất
             </a>
+
+
 
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf

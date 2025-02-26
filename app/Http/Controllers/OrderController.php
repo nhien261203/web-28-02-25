@@ -32,7 +32,7 @@ class OrderController extends Controller
 
         $orders = Order::when($status, function ($query) use ($status) {
             return $query->where('status', $status);
-        })->paginate(10); // Số lượng bản ghi trên mỗi trang
+        })->paginate(6); // Số lượng bản ghi trên mỗi trang
 
         return view('admin.index', compact('orders'));
 

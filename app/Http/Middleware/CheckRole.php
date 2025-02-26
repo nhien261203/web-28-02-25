@@ -17,7 +17,13 @@ class CheckRole
      */
     public function handle($request, Closure $next, $role)
     {
-        if (!Auth::check() || Auth::user()->role !== $role) {
+        if (!Auth::check()) {
+            return redirect('/'); // Chuyển hướng về trang chủ nếu chưa đăng nhập
+        }
+
+        $user = Auth::user();
+
+        if ($user->role !== $role && $user->role !== 'admin') {
             return redirect('/'); // Chuyển hướng về trang chủ nếu không có quyền
         }
 

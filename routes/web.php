@@ -31,7 +31,7 @@ use App\Http\Controllers\PaymentController;
 // });
 
 
-
+// Route::group(['prefix'=> 'admin','middleware' => ['auth', 'role:admin']], function()
 
 Route::group(['prefix'=> 'admin','middleware' => ['auth', 'role:admin']], function(){
     Route::get('/',[AdminController::class, 'index'])->name('admin.index');
