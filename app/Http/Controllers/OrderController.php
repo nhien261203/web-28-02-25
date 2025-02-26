@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderMail;
 use App\Models\Cart;
 use App\Models\Order;
 
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -17,6 +19,8 @@ class OrderController extends Controller
 
         // Call the public method to place the order
         $order = $cart->createOrder(auth()->id());
+
+        Mail::to($order->user->email)->send(new OrderMail($order));
 
 
         return redirect()->route('products.index')->with('success', 'Order placed successfully.');

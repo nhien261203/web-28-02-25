@@ -13,7 +13,7 @@
         <div class="col-md-4 offset-md-4 mt-4">
             <form action="" method="POST" role="form">
                 @csrf
-                <legend class="text-center fw-bold ">Form Login User</legend>
+                <legend class="text-center fw-bold ">Form Login</legend>
 
                 <div class="form-group mb-3">
                     <label for="email" class="fw-bold mb-2">Email</label>
@@ -31,7 +31,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary offset-md-4"  >Login now</button>
-                <a href="{{ route('admin.register') }}">Dang ky</a>
+                <a href="{{ route('register') }}">Dang ky</a>
             </form>
 
             <div class="d-flex justify-content-center mt-2">

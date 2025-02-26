@@ -40,12 +40,12 @@
             </a>
 
             {{-- <a href="{{ route('admin.login') }}" class="btn btn-warning ">Dang xuat</a> --}}
-            <a href="{{ route('admin.logout') }}"
+            <a href="{{ route('logout') }}"
             onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-success">
                 Đăng xuất
             </a>
 
-            <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
             </form>
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ContactEmail;
+use App\Mail\ContactSubmitted;
 use App\Models\Banner;
 use App\Models\Category;
 use App\Models\Product;
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Mail\VerifyEmail;
 
 class HomeController extends Controller
 {
@@ -59,8 +61,17 @@ class HomeController extends Controller
 
         $data = request()->all('email', 'name', 'role');
         $data['password'] = bcrypt(request('password'));
-        User::create($data);
-        return redirect()->route('home.login')->with('success', 'dang ky thanh cong');
+        // User::create($data);
+        // return redirect()->route('home.login')->with('success', 'dang ky thanh cong');
+
+        if ($acc = User::create($data)) {
+            Mail::to($acc->email)->send(new VerifyEmail($acc));
+            dd('ok');
+
+            return redirect()->route('home.login')->with('ok', 'dang ki thanh cong, kiem tra email ');
+        }
+
+        return redirect()->back()->with('no', 'loi!!!, hay thu lai');
     }
     public function logout(Request $request){
         Auth::logout();
@@ -70,6 +81,27 @@ class HomeController extends Controller
         return redirect()->route('home.login');
     }
 
+    // public function check_register(Request $request)
+    // {
+    //     $request->validate([
+    //         'name' => 'required',
+    //         'email' => 'required|email|unique:users',
+    //         'password' => 'required|confirmed',
+    //         'confirm_password' => 'required|same:password',
+    //         'role' => 'required|in:user,admin',
+    //     ]);
+
+    //     $user = User::create([
+    //         'name' => $request->name,
+    //         'email' => $request->email,
+    //         'password' => Hash::make($request->password),
+    //         'role' => $request->role,
+    //     ]);
+
+    //     Mail::to($user->email)->send(new VerifyEmail($user));
+
+    //     return redirect()->route('home.login')->with('success', 'Đăng ký thành công. Vui lòng kiểm tra email để xác thực tài khoản của bạn.');
+    // }
     public function showChangePassword()
     {
         return view('home.change-password');
@@ -99,10 +131,18 @@ class HomeController extends Controller
         if ($check) {
             // auth('cus')->logout();
             Auth::logout();
-            return redirect()->route('home.login')->with('ok', 'Password changed successfully');
+            return redirect()->route('login')->with('success', 'Password changed successfully');
         }
 
         return redirect()->back()->with('no', 'Failed to change password');
+    }
+
+    public function verify(Request $request)
+    {
+        $user = User::where('email', $request->email)->whereNull('email_verified_at')->firstOrFail();
+        $user->update(['email_verified_at' => now()]);
+
+        return redirect()->route('login')->with('success', 'Xác thực email thành công. Bạn có thể đăng nhập.');
     }
 
 
@@ -272,7 +312,10 @@ class HomeController extends Controller
             'message' => 'required',
         ]);
 
-        Contact::create($request->all());
+        $contact = Contact::create($request->all());
+
+        // Gửi email xác nhận liên hệ
+        Mail::to($contact->email)->send(new ContactSubmitted($contact->toArray()));
 
         return redirect()->route('home.contact')->with('success', 'Cảm ơn bạn đã liên hệ với chúng tôi!');
     }

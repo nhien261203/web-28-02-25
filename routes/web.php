@@ -30,13 +30,7 @@ use App\Http\Controllers\PaymentController;
 //     Route::get('/',[HomeController::class, 'index'])->name('home.index');
 // });
 
-Route::get('/admin/login',[AdminController::class, 'login'])->name('admin.login');
-Route::post('/admin/login',[AdminController::class, 'check_login']);
 
-Route::get('/admin/register',[AdminController::class, 'register'])->name('admin.register');
-Route::post('/admin/register',[AdminController::class, 'check_register']);
-Route::get('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
-Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
 
 
 Route::group(['prefix'=> 'admin','middleware' => ['auth', 'role:admin']], function(){
@@ -104,17 +98,27 @@ Route::get('/vnpay_return', [PaymentController::class, 'paymentReturn'])->name('
 Route::get('/payment-success', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
 
 //dang nhap user
-Route::get('/home/login',[HomeController::class, 'login'])->name('home.login');
-Route::post('/home/login',[HomeController::class, 'check_login']);
+// Route::get('/home/login',[HomeController::class, 'login'])->name('home.login');
+// Route::post('/home/login',[HomeController::class, 'check_login']);
 
-Route::get('/home/register',[HomeController::class, 'register'])->name('home.register');
-Route::post('/home/register',[HomeController::class, 'check_register']);
+// Route::get('/home/register',[HomeController::class, 'register'])->name('home.register');
+// Route::post('/home/register',[HomeController::class, 'check_register']);
+// Route::get('/home/logout', [HomeController::class, 'logout'])->name('home.logout');
+// Route::post('/home/logout', [HomeController::class, 'logout'])->name('home.logout');
+Route::get('/verify-account/{email}', [HomeController::class, 'verify'])->name('account.verify');
+
+Route::get('/login',[AdminController::class, 'login'])->name('login');
+Route::post('/login',[AdminController::class, 'check_login']);
+
+Route::get('/register',[AdminController::class, 'register'])->name('register');
+Route::post('/register',[AdminController::class, 'check_register']);
+Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
+Route::post('/logout', [AdminController::class, 'logout'])->name('logout');
 
 
 
 Route::group(['prefix'=> 'home','middleware' => ['auth', 'role:user']], function(){
-    Route::get('/home/logout', [HomeController::class, 'logout'])->name('home.logout');
-    Route::post('/home/logout', [HomeController::class, 'logout'])->name('home.logout');
+
 
     Route::get('orders', [OrderController::class, 'userOrders'])->name('user.orders');
     Route::get('/order/{id}', [OrderController::class, 'showOrderUsers'])->name('orderUser.show');

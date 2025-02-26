@@ -50,9 +50,19 @@
 
                     @enderror
                 </div>
+                <div class="form-group mb-3">
+                    <label for="role" class="fw-bold mb-2">Role</label>
+                    <select name="role" class="form-control">
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                    @error('role')
+                        <small>{{ $message }}</small>
+                    @enderror
+                </div>
 
                 <button type="submit" class="btn btn-primary offset-md-4 mt-2 mb-2"  >Register now</button>
-                <a href="{{ route('admin.login') }}">Dang nhap</a>
+                <a href="{{ route('login') }}">Dang nhap</a>
             </form>
         </div>
 

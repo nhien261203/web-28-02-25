@@ -44,14 +44,14 @@
                                 <ul >
                                     <li><a  href="{{route('password.change')}}">Đổi mật khẩu</a></li>
                                     <li>
-                                        <a href="{{ route('home.logout') }}"
+                                        <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                                             class="dropdown-item">
                                             Đăng xuất
                                         </a>
                                     </li>
                                 </ul>
-                                <form id="logout-form" action="{{ route('home.logout') }}" method="POST" style="display: none;">
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                     @csrf
                                 </form>
                             </li>

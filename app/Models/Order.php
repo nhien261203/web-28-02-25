@@ -22,8 +22,13 @@ class Order extends Model
     public function products()
     {
         return $this->belongsToMany(Product::class, 'order_product')
-                    ->withPivot('quantity', 'price')
-                    ->withTimestamps();
+            ->withPivot('quantity', 'price')
+            ->withTimestamps();
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
 
@@ -34,7 +39,8 @@ class Order extends Model
     //     return $this->hasOne(User::class, 'id', 'user_id');
     // }
 
-    // public function details(){
+    // public function details()
+    // {
     //     return $this->hasManyThrough(
     //         Order::class,
     //         Product::class,
@@ -44,5 +50,4 @@ class Order extends Model
     //         'order_id'
     //     );
     // }
-
 }

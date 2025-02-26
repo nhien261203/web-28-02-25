@@ -31,7 +31,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary offset-md-4"  >Login now</button>
-                <a href="{{ route('admin.register') }}">Dang ky</a>
+                <a href="{{ route('register') }}">Dang ky</a>
             </form>
 
             <div class="d-flex justify-content-center mt-2">

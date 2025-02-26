@@ -9,20 +9,17 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class OrderMail extends Mailable
+class VerifyEmail extends Mailable
 {
     use Queueable, SerializesModels;
-    public $order;
-
 
     /**
      * Create a new message instance.
      */
-    public function __construct($order)
+    public $account;
+    public function __construct($acc)
     {
-        $this->order = $order;
-        // $this->token = $token;
-        //
+        $this->account = $acc;
     }
 
     /**
@@ -31,7 +28,7 @@ class OrderMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Verify Order shopping',
+            subject: 'Verify Email',
         );
     }
 
@@ -41,8 +38,7 @@ class OrderMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.order_verify',
-
+            view: 'emails.verify-account',
         );
     }
 

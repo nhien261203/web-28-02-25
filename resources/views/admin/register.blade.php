@@ -63,7 +63,7 @@
 
 
                 <button type="submit" class="btn btn-primary offset-md-4 mt-2 mb-2"  >Register now</button>
-                <a href="{{ route('admin.login') }}">Dang nhap</a>
+                <a href="{{ route('login') }}">Dang nhap</a>
             </form>
         </div>
 

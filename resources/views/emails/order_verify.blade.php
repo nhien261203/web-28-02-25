@@ -1,5 +1,5 @@
 <div style="border: 3px solid">
-    <h3>Hi {{ $order->customer->name }}</h3>
+    <h3>Hi {{ $order->user->name }}</h3>
 
     <p>Content verify</p>
 
@@ -12,13 +12,14 @@
             <th>Quantity</th>
             <th>Totalprice</th>
         </tr>
-        @foreach ($order->details as $detail)
+        @foreach ($order->products as $product)
         <tr>
-            <th>{{ $loop->index+1}}</th>
-            <th>{{  $detail->product->name}}</th>
-            <th>{{$detail->price}}</th>
+            <th>{{ $loop->index+1 }}</th>
+            <th>{{  $product->name }}</th>
+            <th>{{ $product->pivot->price }}</th>
+            <th>{{ $product->pivot->quantity }}</th>
         </tr>
-
         @endforeach
+
     </table>
 </div>
