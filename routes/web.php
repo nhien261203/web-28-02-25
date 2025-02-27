@@ -43,6 +43,8 @@ Route::group(['prefix'=> 'admin','middleware' => ['auth', 'role:admin']], functi
 
     Route::get('/orders', [OrderController::class, 'index'])->name('order.index');
     Route::get('/order/{id}', [OrderController::class, 'show'])->name('order.show');
+
+    Route::get('/contacts', [AdminController::class, 'contact'])->name('admin.contact');
 });
 
 Route::get('admin/product/favorites', [ProductController::class, 'favorites'])->name('admin.product.favorites');
@@ -80,7 +82,7 @@ Route::get('/clear', [CartController::class, 'clearCart'])->name('cart.clear');
 // Route::get('/admin/contact', [HomeController::class], 'contact')->name('admin.contact');
 
 //favorite: xu li khi an yeu thich
-Route::get('/favorite/{product}',[HomeController::class, 'favorite'])->name('admin.favorite');
+Route::get('/admin/favorite/{product}',[HomeController::class, 'favorite'])->name('admin.favorite');
 
 //favorite: trang yeu thich
 Route::get('/favorites', [FavoriteController::class, 'index'])->name('admin.favorite.index');
@@ -115,7 +117,8 @@ Route::post('/register',[AdminController::class, 'check_register']);
 Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
 Route::post('/logout', [AdminController::class, 'logout'])->name('logout');
 
-
+Route::get('/admin/change-password', [AdminController::class, 'showChangePassWord'])->name('password_admin.change');
+Route::post('/admin/change-password', [AdminController::class,'ChangePassword'])->name('password_admin.update');
 
 Route::group(['prefix'=> 'home','middleware' => ['auth', 'role:user']], function(){
 
@@ -136,6 +139,9 @@ Route::group(['prefix'=> 'home','middleware' => ['auth', 'role:user']], function
 
     // an chu mua ngay trang san pham ra trang chi tiet san pham
     Route::get('/product/{id}', [HomeController::class, 'showProduct'])->name('products.show');
+
+    // yeu thich cua user
+    Route::get('/favorites', [HomeController::class, 'Favorite_user'])->name('user.favorites');
 
 });
 

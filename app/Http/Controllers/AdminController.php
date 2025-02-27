@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Mail\VerifyEmail;
+use App\Models\Contact;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
@@ -41,6 +43,40 @@ class AdminController extends Controller
 
         return redirect()->back();
 
+    }
+    public function showChangePassword()
+    {
+        return view('admin.change-password');
+    }
+
+    public function ChangePassword(Request $req)
+    {
+        $auth = Auth::user();
+
+        // if (!$auth) {
+        //     return redirect()->route('account.login')->with('no', 'User not authenticated');
+        // }
+
+        $req->validate([
+            'old_password' => ['required', function ($attr, $value, $fail) use ($auth) {
+                if (!Hash::check($value, $auth->password)) {
+                    $fail('Your password does not match');
+                }
+            }],
+            'password' => 'required|min:4',
+            'confirm_password' => 'required|same:password'
+        ]);
+
+        $data['password'] = bcrypt($req->password);
+        $check = $auth->update($data);
+
+        if ($check) {
+            // auth('cus')->logout();
+            Auth::logout();
+            return redirect()->route('login')->with('success', 'Password changed successfully');
+        }
+
+        return redirect()->back()->with('no', 'Failed to change password');
     }
 
     public function register(){
@@ -82,6 +118,12 @@ class AdminController extends Controller
         Auth::logout();
 
         return redirect()->route('login');
+    }
+
+    public function contact(){
+
+        $contacts = Contact::all();
+        return view('admin.contact', compact('contacts'));
     }
 
 }

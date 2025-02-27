@@ -31,10 +31,17 @@
                     <li class="nav-item">
                         <a  class="nav-link" href="{{route('admin.favorite.index')}}"> My Favorites </a>
                     </li>
+                    <li class="nav-item">
+                        <a  class="nav-link" href="{{route('admin.contact')}}"> Contact </a>
+                    </li>
+
+
 
 
                 </ul>
             </div>
+
+            <a href="{{ route('password_admin.change')}}">Doi mat khau</a>
 
             {{-- de totalQuantity len dau gio hang --}}
             <a href="{{ route('cart.view') }}" class="btn btn-success" style="margin-right:2vw">

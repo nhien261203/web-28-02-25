@@ -319,4 +319,12 @@ class HomeController extends Controller
 
         return redirect()->route('home.contact')->with('success', 'Cảm ơn bạn đã liên hệ với chúng tôi!');
     }
+
+    public function Favorite_user(){
+        $user = Auth::user();
+        $favorites = Favorite::where('user_id', $user->id)->with('product')->get();
+
+
+        return view('home.favorites', compact('favorites'));
+    }
 }
