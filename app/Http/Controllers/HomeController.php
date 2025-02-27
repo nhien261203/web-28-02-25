@@ -324,7 +324,6 @@ class HomeController extends Controller
         $user = Auth::user();
         $favorites = Favorite::where('user_id', $user->id)->with('product')->get();
 
-
         return view('home.favorites', compact('favorites'));
     }
 }

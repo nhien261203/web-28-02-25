@@ -50,7 +50,7 @@
 
                     @enderror
                 </div>
-                <div class="form-group mb-3">
+                {{-- <div class="form-group mb-3">
                     <label for="role" class="fw-bold mb-2">Role</label>
                     <select name="role" class="form-control">
                         <option value="user">User</option>
@@ -59,7 +59,7 @@
                     @error('role')
                         <small>{{ $message }}</small>
                     @enderror
-                </div>
+                </div> --}}
 
 
                 <button type="submit" class="btn btn-primary offset-md-4 mt-2 mb-2"  >Register now</button>

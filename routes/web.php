@@ -11,7 +11,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\LoginGoogleController;
 use App\Http\Controllers\MembershipCardController;
 use App\Http\Controllers\PaymentController;
-
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +40,7 @@ Route::group(['prefix'=> 'admin','middleware' => ['auth', 'role:admin']], functi
     Route::resources([
         'category' => CategoryController::class,
         'product' => ProductController::class,
+        'user' => UserController::class,
     ]);
 
     Route::get('/orders', [OrderController::class, 'index'])->name('order.index');

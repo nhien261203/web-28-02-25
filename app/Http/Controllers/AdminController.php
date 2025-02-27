@@ -47,6 +47,7 @@ class AdminController extends Controller
     public function showChangePassword()
     {
         return view('admin.change-password');
+
     }
 
     public function ChangePassword(Request $req)
@@ -90,10 +91,10 @@ class AdminController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required',
             'confirm_password' => 'required|same:password',
-            'role' => 'required|in:user,admin',
+
         ]);
 
-        $data = request()->all('email', 'name', 'role');
+        $data = request()->all('email', 'name');
         $data['password'] = bcrypt(request('password'));
         // User::create($data);
         // return redirect()->route('home.login')->with('success', 'dang ky thanh cong');
