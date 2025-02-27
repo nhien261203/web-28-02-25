@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Mail\PaymentSuccessMail;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class PaymentController extends Controller
 {
@@ -81,6 +82,8 @@ class PaymentController extends Controller
             $order->status = 'confirmed';
             $order->save();
 
+
+
             // lưu chi tiết đơn hàng
             foreach ($cart as $item) {
                 $order->products()->attach($item['id'], [
@@ -89,6 +92,8 @@ class PaymentController extends Controller
                     'name' => $item['name']
                 ]);
             }
+
+
 
             header('Location: ' . $vnp_Url);
 
@@ -107,6 +112,13 @@ class PaymentController extends Controller
 
         if ($vnp_ResponseCode == "00") { // Thanh toán thành công
             // Xóa giỏ hàng
+            // Gửi email xác nhận
+            $user = auth()->user();
+            $order = Order::where('user_id', $user->id)->latest()->first();
+
+            Mail::to($user->email)->send(new PaymentSuccessMail($order, $user));
+
+
             session()->forget('cart');
 
             // Hiển thị trang thành công

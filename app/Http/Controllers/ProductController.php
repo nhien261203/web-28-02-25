@@ -123,10 +123,10 @@ class ProductController extends Controller
         return redirect()->route('product.index');
     }
 
-    public function favorites()
-    {
-        dd('ok');
-        return view('admin.product.favorites');
-    }
+    // public function favorites()
+    // {
+
+    //     return view('admin.product.favorites');
+    // }
 
 }

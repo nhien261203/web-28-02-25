@@ -47,9 +47,10 @@ Route::group(['prefix'=> 'admin','middleware' => ['auth', 'role:admin']], functi
     Route::get('/order/{id}', [OrderController::class, 'show'])->name('order.show');
 
     Route::get('/contacts', [AdminController::class, 'contact'])->name('admin.contact');
+
 });
 
-Route::get('admin/product/favorites', [ProductController::class, 'favorites'])->name('admin.product.favorites');
+
 
 // Route::get('login',[HomeController::class, 'login'])->name('home.login');
 // Route::post('/login',[HomeController::class, 'check_login'])
