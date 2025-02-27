@@ -45,6 +45,9 @@ Route::group(['prefix'=> 'admin','middleware' => ['auth', 'role:admin']], functi
 
     Route::get('/orders', [OrderController::class, 'index'])->name('order.index');
     Route::get('/order/{id}', [OrderController::class, 'show'])->name('order.show');
+    Route::get('orders/{id}/edit', [OrderController::class, 'edit'])->name('order.edit');
+    Route::put('orders/{id}', [OrderController::class, 'update'])->name('order.update');
+    Route::delete('/orders/{id}', [OrderController::class, 'destroy'])->name('order.destroy');
 
     Route::get('/contacts', [AdminController::class, 'contact'])->name('admin.contact');
 

@@ -86,7 +86,7 @@ class Cart
         $order = Order::create([
             'user_id' => $userId,
             'total_amount' => $this->getTotalPrice(),
-            'status' => 'pending',
+            'status' => 'Chờ xác nhận',
         ]);
 
         foreach ($this->items as $item) {

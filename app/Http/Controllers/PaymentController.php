@@ -79,7 +79,7 @@ class PaymentController extends Controller
             $order = new Order();
             $order->user_id = auth()->id();
             $order->total_amount = $data['total'];
-            $order->status = 'confirmed';
+            $order->status = 'Đã thanh toán';
             $order->save();
 
 

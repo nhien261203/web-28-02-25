@@ -34,9 +34,36 @@ class OrderController extends Controller
             return $query->where('status', $status);
         })->paginate(6); // Số lượng bản ghi trên mỗi trang
 
-        return view('admin.index', compact('orders'));
+        return view('admin.order.index', compact('orders'));
 
     }
+    public function edit($id)
+    {
+        $order = Order::findOrFail($id);
+
+
+        return view('admin.order.edit-order', compact('order'));
+    }
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required|string|max:255'
+        ]);
+
+        $order = Order::findOrFail($id);
+        $order->status = $request->status;
+        $order->save();
+
+        return redirect()->route('order.index')->with('success', 'Cập nhật đơn hàng thành công.');
+    }
+    public function destroy($id)
+    {
+        $order = Order::findOrFail($id);
+        $order->delete();
+
+        return redirect()->route('order.index')->with('success', 'Xóa đơn hàng thành công.');
+    }
+
 
 
     public function userOrders()
