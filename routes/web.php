@@ -9,6 +9,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\LoginGoogleController;
+use App\Http\Controllers\MembershipCardController;
 use App\Http\Controllers\PaymentController;
 
 
@@ -142,7 +143,6 @@ Route::group(['prefix'=> 'home','middleware' => ['auth', 'role:user']], function
 
     // yeu thich cua user
     Route::get('/favorites', [HomeController::class, 'Favorite_user'])->name('user.favorites');
-
 });
 
 
