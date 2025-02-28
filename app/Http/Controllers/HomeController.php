@@ -17,6 +17,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\VerifyEmail;
+use App\Models\Membership;
+use App\Models\Order;
 
 class HomeController extends Controller
 {
@@ -325,5 +327,14 @@ class HomeController extends Controller
         $favorites = Favorite::where('user_id', $user->id)->with('product')->get();
 
         return view('home.favorites', compact('favorites'));
+    }
+
+    public function showMembership()
+    {
+        $user = Auth::user();
+        $membership = Membership::where('user_id', $user->id)->first();
+        $orders = Order::where('user_id', $user->id)->get();
+
+        return view('home.membercard-user', compact('membership', 'orders'));
     }
 }

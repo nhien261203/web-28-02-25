@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\OrderMail;
 use App\Models\Cart;
+use App\Models\Membership;
 use App\Models\Order;
 
 
@@ -20,11 +21,18 @@ class OrderController extends Controller
         // Call the public method to place the order
         $order = $cart->createOrder(auth()->id());
 
+        // cap nhat diem khi dat hang : start
+        $user = auth()->user();
+
+
         Mail::to($order->user->email)->send(new OrderMail($order));
 
 
         return redirect()->route('products.index')->with('success', 'Order placed successfully.');
     }
+
+
+
 
     public function index(Request $request)
     {
@@ -35,7 +43,6 @@ class OrderController extends Controller
         })->paginate(6); // Số lượng bản ghi trên mỗi trang
 
         return view('admin.order.index', compact('orders'));
-
     }
     public function edit($id)
     {
@@ -64,15 +71,12 @@ class OrderController extends Controller
         return redirect()->route('order.index')->with('success', 'Xóa đơn hàng thành công.');
     }
 
-
-
     public function userOrders()
     {
         $user = Auth::user();
         $orders = Order::where('user_id', $user->id)->get();
 
         return view('home.order', compact('orders'));
-
     }
 
 

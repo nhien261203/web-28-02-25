@@ -4,25 +4,32 @@ namespace App\Http\Controllers;
 
 use App\Mail\PaymentSuccessMail;
 use App\Models\Order;
+use App\Models\Cart;
+use App\Models\Membership;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 class PaymentController extends Controller
 {
     public $items = [];
+
     public function vnpay_payment(Request $request)
     {
         $data = $request->all();
+        $userId = auth()->id();
+        $cart = new Cart();
 
-        $vnp_TmnCode = "R04CAIF6"; // Mã website tại VNPAY
-        $vnp_HashSecret = "IY1BW043BVONGBNI083QQL7GTFH830Y5"; // Chuỗi bí mật
+        // Tính toán tổng tiền sau giảm giá
+        $totalAmount = $cart->getFinalTotalPrice($userId);
 
+        $vnp_TmnCode = "R04CAIF6";
+        $vnp_HashSecret = "IY1BW043BVONGBNI083QQL7GTFH830Y5";
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_Returnurl = route('payment.success'); // URL trả về sau khi thanh toán
-        $vnp_TxnRef = date("YmdHis"); // Mã đơn hàng
+        $vnp_Returnurl = route('payment.success');
+        $vnp_TxnRef = date("YmdHis");
         $vnp_OrderInfo = "Thanh toán hóa đơn test";
         $vnp_OrderType = "billpayment";
-        $vnp_Amount = $data['total'] * 100000; // Số tiền thanh toán
+        $vnp_Amount = $totalAmount * 100000; // Sử dụng tổng tiền sau giảm giá
         $vnp_Locale = "vn";
         $vnp_BankCode = "NCB";
         $vnp_IpAddr = $request->ip();
@@ -70,22 +77,18 @@ class PaymentController extends Controller
             'code' => '00',
             'message' => 'success',
             'data' => $vnp_Url
-
         ];
 
-        $cart = session('cart');
+        $cartItems = session('cart');
 
         if (isset($_POST['redirect'])) {
             $order = new Order();
-            $order->user_id = auth()->id();
-            $order->total_amount = $data['total'];
+            $order->user_id = $userId;
+            $order->total_amount = $totalAmount; // Sử dụng tổng tiền sau giảm giá
             $order->status = 'Đã thanh toán';
             $order->save();
 
-
-
-            // lưu chi tiết đơn hàng
-            foreach ($cart as $item) {
+            foreach ($cartItems as $item) {
                 $order->products()->attach($item['id'], [
                     'quantity' => $item['quantity'],
                     'price' => $item['price'],
@@ -93,35 +96,27 @@ class PaymentController extends Controller
                 ]);
             }
 
-
-
             header('Location: ' . $vnp_Url);
-
             die();
             session()->forget('cart');
         } else {
             echo json_encode($returnData);
         }
     }
+
     public function paymentSuccess(Request $request)
     {
-        // Lấy dữ liệu từ VNPay callback
-        $vnp_ResponseCode = $request->get('vnp_ResponseCode'); // Mã phản hồi từ VNPay
-        $vnp_TxnRef = $request->get('vnp_TxnRef'); // Mã giao dịch đơn hàng
-        $vnp_Amount = $request->get('vnp_Amount') / 100000; // Lấy số tiền thanh toán thực tế
+        $vnp_ResponseCode = $request->get('vnp_ResponseCode');
+        $vnp_TxnRef = $request->get('vnp_TxnRef');
+        $vnp_Amount = $request->get('vnp_Amount') / 100000;
 
-        if ($vnp_ResponseCode == "00") { // Thanh toán thành công
-            // Xóa giỏ hàng
-            // Gửi email xác nhận
+        if ($vnp_ResponseCode == "00") {
             $user = auth()->user();
             $order = Order::where('user_id', $user->id)->latest()->first();
 
             Mail::to($user->email)->send(new PaymentSuccessMail($order, $user));
-
-
             session()->forget('cart');
 
-            // Hiển thị trang thành công
             return redirect()->route('cart.view')->with('success', 'Thanh toán thành công! Đơn hàng của bạn đã được xác nhận.');
         } else {
             return redirect()->route('cart.view')->with('error', 'Thanh toán không thành công, vui lòng thử lại.');

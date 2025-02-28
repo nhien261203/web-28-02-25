@@ -33,7 +33,7 @@
                         <li class="nav-item"><a class="nav-link" href="#">TIN TỨC</a></li>
 
 
-                        <li class="nav-item"><a class="nav-link" href="#">THẺ THÀNH VIÊN</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{route('membership.index')}}">THẺ THÀNH VIÊN</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{route('home.contact')}}">LIÊN HỆ</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{route('user.orders')}}">ĐƠN HÀNG ĐÃ MUA</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{route('user.favorites')}}">YÊU THÍCH SẢN PHẨM</a></li>

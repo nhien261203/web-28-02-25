@@ -600,5 +600,6 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 
--- tk admin 2101... mk: 123456
--- tk user dovan... mk: nhien
+-- tk admin 2101... mk: nhien
+-- tk user user2... mk: user2
+
