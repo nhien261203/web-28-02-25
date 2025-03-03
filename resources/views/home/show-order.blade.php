@@ -7,7 +7,7 @@
         <p>Ma don hang: {{ $order->id }}</p>
         <p>User_id: {{ $order->user_id }} </p>
         <p>Trang thai: {{ $order->status }}</p>
-        <p>Tong tien: {{ $order->total_amount}}</p>
+        <p>Tong tien: {{ number_format($order->total_amount)}}</p>
         <p>Ngay Order: {{$order->created_at->format('d/m/Y')}}</p>
 
         <h3>San pham trong don hang</h3>
@@ -27,8 +27,8 @@
                     <tr>
                         <td>{{ $product->name }}</td>
                         <td>{{ $product->pivot->quantity }}</td>
-                        <td>{{ $product->pivot->price  }}</td>
-                        <td>{{ $product->pivot->quantity * $product->pivot->price }}</td>
+                        <td>{{ number_format($product->pivot->price)  }}</td>
+                        <td>{{ number_format($product->pivot->quantity * $product->pivot->price) }}</td>
                         <td>{{ $product->category->name ?? 'loi!!!'}}</td>
                     </tr>
                 @endforeach

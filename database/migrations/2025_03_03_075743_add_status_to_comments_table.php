@@ -9,22 +9,25 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('comments', function (Blueprint $table) {
+        Schema::table('comments', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('email');
             $table->text('comment');
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('product_id')->constrained('products');
+            $table->tinyInteger('status')->default(0); // 0: Chờ duyệt, 1: Đã duyệt
             $table->timestamps();
+
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('comments');
+        Schema::table('comments', function (Blueprint $table) {
+            $table->dropColumn('status');
+        });
     }
 };

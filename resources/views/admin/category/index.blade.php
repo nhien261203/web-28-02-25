@@ -21,7 +21,7 @@
         <tr>
             <td>{{ $cat->id }}</td>
             <td>{{ $cat->name}}</td>
-            <td>{{ $cat->status == 0 ? 'Tam an' : 'Hien thi' }}</td>
+            <td>{{ $cat->status == 0 ? 'Tạm ẩn' : 'Hiển thị' }}</td>
             <td>
                 <form action="{{ route('category.destroy', $cat->id) }}" method="POST">
                     @csrf

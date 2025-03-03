@@ -75,14 +75,14 @@ class HomeController extends Controller
 
         return redirect()->back()->with('no', 'loi!!!, hay thu lai');
     }
-    public function logout(Request $request){
+    public function logout(Request $request)
+    {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
         return redirect()->route('home.login');
     }
-
     // public function check_register(Request $request)
     // {
     //     $request->validate([
@@ -101,6 +101,7 @@ class HomeController extends Controller
     //     ]);
 
     //     Mail::to($user->email)->send(new VerifyEmail($user));
+
 
     //     return redirect()->route('home.login')->with('success', 'Đăng ký thành công. Vui lòng kiểm tra email để xác thực tài khoản của bạn.');
     // }
@@ -162,15 +163,26 @@ class HomeController extends Controller
 
     public function post_comment($proId)
     {
-        $data = request()->all('comment');
-        $data['product_id'] = $proId;
-        $data['user_id'] = auth()->id();
-        //dd($data);
+        request()->validate([
+            'comment' => 'required',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+        ]);
+
+        $data = [
+            'product_id' => $proId,
+            'user_id' => auth()->id(),
+            'name' => request('name'),
+            'email' => request('email'),
+            'comment' => request('comment'),
+            'status' => 0, // Bình luận mới chưa được duyệt
+        ];
+
         if (Comment::create($data)) {
-            return redirect()->back();
+            return redirect()->back()->with('success', 'Bình luận của bạn đã được gửi và đang chờ duyệt.');
         }
 
-        return redirect()->route('admin.product.show');
+        return redirect()->back()->with('error', 'Có lỗi xảy ra, vui lòng thử lại.');
     }
 
 
@@ -229,7 +241,15 @@ class HomeController extends Controller
 
     public function index()
     {
-        $products = Product::with('category')->orderBy('id', 'DESC')->take(4)->get();
+        $products = Product::where('status', 1)
+            ->whereHas('category', function ($query) {
+                $query->where('status', 1); // Chỉ lấy sản phẩm thuộc danh mục đang hiển thị
+            })
+            ->with('category')
+            ->orderBy('id', 'DESC')
+            ->take(4)
+            ->get();
+
         $banners = Banner::all();
         $randomBanners = $banners->shuffle()->take(3); // Lấy 3 banner ngẫu nhiên
         return view('home.home', compact('products', 'randomBanners'));
@@ -242,17 +262,21 @@ class HomeController extends Controller
     //     $randomBanners = $banners->shuffle()->take(3); // Lấy 3 banner ngẫu nhiên
     //     return view('home.product', compact('categories', 'randomBanners'));
     // }
+
     public function products(Request $request)
     {
         $minPrice = $request->input('min_price');
         $maxPrice = $request->input('max_price');
 
-        // Ensure minPrice and maxPrice are greater than zero and minPrice is less than maxPrice
-        if (($minPrice !== null && $minPrice <= 0) || ($maxPrice !== null && $maxPrice <= 0) || ($minPrice !== null && $maxPrice !== null && $minPrice > $maxPrice)) {
-            return redirect()->back()->withErrors(['msg' => 'Invalid price range. Min price should be greater than 0 and less than max price.']);
+        // Kiểm tra giá trị hợp lệ
+        if (($minPrice !== null && !is_numeric($minPrice)) || ($maxPrice !== null && !is_numeric($maxPrice))) {
+            return redirect()->back();
         }
 
-        $query = Product::query();
+        $query = Product::where('status', 1)
+            ->whereHas('category', function ($q) {
+                $q->where('status', 1);
+            });
 
         if ($minPrice !== null) {
             $query->where('price', '>=', $minPrice);
@@ -261,27 +285,30 @@ class HomeController extends Controller
         if ($maxPrice !== null) {
             $query->where('price', '<=', $maxPrice);
         }
-        $categories = Category::whereHas('products', function ($q) use ($minPrice, $maxPrice) {
-            if ($minPrice !== null) {
-                $q->where('price', '>=', $minPrice);
-            }
-            if ($maxPrice !== null) {
-                $q->where('price', '<=', $maxPrice);
-            }
-        })->with(['products' => function ($q) use ($minPrice, $maxPrice) {
-            if ($minPrice !== null) {
-                $q->where('price', '>=', $minPrice);
-            }
-            if ($maxPrice !== null) {
-                $q->where('price', '<=', $maxPrice);
-            }
-        }])->get();
 
         $products = $query->with('category')->get();
-        $banners = Banner::inRandomOrder()->take(3)->get(); // Select 3 random banners
+
+        // Lọc danh mục chỉ hiển thị những danh mục có sản phẩm thỏa mãn điều kiện lọc
+        $categoryIds = $products->pluck('category_id')->unique();
+        $categories = Category::where('status', 1)
+            ->whereIn('id', $categoryIds)
+            ->with(['products' => function ($q) use ($minPrice, $maxPrice) {
+                $q->where('status', 1);
+                if ($minPrice !== null) {
+                    $q->where('price', '>=', $minPrice);
+                }
+                if ($maxPrice !== null) {
+                    $q->where('price', '<=', $maxPrice);
+                }
+            }])
+            ->get();
+
+        $banners = Banner::inRandomOrder()->take(3)->get();
 
         return view('home.product', compact('products', 'categories', 'banners'));
     }
+
+    // ... other code ...
 
     public function about()
     {
@@ -298,16 +325,26 @@ class HomeController extends Controller
             $recentlyViewed[] = $products->id;
             session(['recently_viewed' => $recentlyViewed]);
         }
+
         // Lấy các sản phẩm đã xem
         $recentProducts = Product::whereIn('id', $recentlyViewed)->get();
-        return view('home.product-detail', compact('products', 'recentProducts'));
+
+        $comments = Comment::where('product_id', $id)
+            ->where('status', 1) // Chỉ lấy bình luận đã được admin duyệt
+            ->with('user')
+            ->orderBy('created_at', 'DESC')
+            ->get();
+
+        return view('home.product-detail', compact('products', 'recentProducts', 'comments'));
     }
 
-    public function showContact(){
+    public function showContact()
+    {
         return view('home.contact');
     }
 
-    public function submitContact(Request $request){
+    public function submitContact(Request $request)
+    {
         $request->validate([
             'name' => 'required',
             'email' => 'required|email',
@@ -322,7 +359,8 @@ class HomeController extends Controller
         return redirect()->route('home.contact')->with('success', 'Cảm ơn bạn đã liên hệ với chúng tôi!');
     }
 
-    public function Favorite_user(){
+    public function Favorite_user()
+    {
         $user = Auth::user();
         $favorites = Favorite::where('user_id', $user->id)->with('product')->get();
 

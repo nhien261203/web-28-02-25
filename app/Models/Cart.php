@@ -9,8 +9,6 @@ class Cart
     public $items = [];
     public $totalPrice = 0;
     public $totalQuantity = 0;
-
-
     public function __construct()
     {
         $this->items = session('cart') ? session('cart') : [];
@@ -19,7 +17,7 @@ class Cart
     }
     public function add($product, $quantity = 1)
     {
-        
+
         if (isset($this->items[$product->id])) {
             $this->items[$product->id]['quantity'] += $quantity;
         } else {
@@ -35,7 +33,6 @@ class Cart
 
         // $this->totalQuantity = $this->getTotalQuantity();
         // $this->totalPrice = $this->getTotalPrice(); // Calculate total price
-
         session(['cart' => $this->items]);
 
 
@@ -53,6 +50,7 @@ class Cart
             $this->totalQuantity = $this->getTotalQuantity();
         }
     }
+
     public function delete($id)
     {
         if (isset($this->items[$id])) {
@@ -119,24 +117,30 @@ class Cart
         if ($membership) {
             return $totalPrice - $membership->calculateDiscount($totalPrice);
         }
-
         return $totalPrice;
     }
 
     private function updateMembershipPoints($userId, $orderTotal)
     {
         $membership = Membership::where('user_id', $userId)->first();
-        $pointsToAdd = $orderTotal * 0.1; // Tính 10% của tổng tiền đơn hàng
+
+        $pointsToAdd = $orderTotal * 0.001;
 
         if ($membership) {
             $membership->points += $pointsToAdd;
-            $membership->updateMembershipLevel();
+            $membership->updateMembershipLevel(); // Cập nhật cấp độ ngay lập tức
             $membership->save();
         } else {
-            Membership::create([
+            // Tạo mới và gán vào biến để sử dụng tiếp
+            $membership = Membership::create([
                 'user_id' => $userId,
                 'points' => $pointsToAdd,
             ]);
+
+            if ($membership) { // Kiểm tra nếu đã tạo thành công
+                $membership->updateMembershipLevel();
+                $membership->save();
+            }
         }
     }
 }

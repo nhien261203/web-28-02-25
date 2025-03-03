@@ -10,7 +10,7 @@
             <th>Product name</th>
             <th>Price</th>
             <th>Quantity</th>
-            <th>Totalprice</th>
+            {{-- <th>Totalprice</th> --}}
         </tr>
         @foreach ($order->products as $product)
         <tr>
@@ -18,6 +18,8 @@
             <th>{{  $product->name }}</th>
             <th>{{ $product->pivot->price }}</th>
             <th>{{ $product->pivot->quantity }}</th>
+            {{-- <th>{{$product->total_amount}}</th> --}}
+
         </tr>
         @endforeach
 

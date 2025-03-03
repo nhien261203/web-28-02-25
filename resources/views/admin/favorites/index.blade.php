@@ -31,10 +31,10 @@
                     @endif
                 </td>
 
-                <td>{{ $favorite->product->price }}</td>
+                <td>{{number_format($favorite->product->price, 0)}} đ</td>
                 <td>{{ $favorite->product->content }}</td>
                 <td>{{ $favorite->product->category->name ?? 'No category' }}</td>
-                
+
             </tr>
             @endforeach
         </tbody>

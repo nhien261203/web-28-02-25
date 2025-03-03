@@ -32,7 +32,7 @@
                         <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" width="50px" height="50px">
                     @endif
                 </td>
-                <td>{{ $product->price }}</td>
+                <td>{{ number_format($product->price, 0)  }} đ</td>
                 <td>{{  Str::limit($product->content, 30) }}</td>
                 <td>{{ $product->category->name ?? 'No category' }}</td>
                 <td>

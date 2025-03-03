@@ -65,7 +65,7 @@
 
                                 <div class="card-body text-center">
                                     <h5 class="card-title">{{ $product->name }}</h5>
-                                    <p class="price">{{ $product->price }} đ</p>
+                                    <p class="price">{{ number_format($product->price) }} đ</p>
                                     <p class="card-text">{{ Str::limit($product->content, 40) }}</p>
 
                                     <a href="{{ route('products.show', $product->id) }}" class="btn btn-primary btn-xem">Xem chi tiết</a>
@@ -89,7 +89,7 @@
                 prevEl: '.swiper-button-prev',
             },
             autoplay: {
-                delay: 3000, 
+                delay: 3000,
                 disableOnInteraction: false, // Không dừng autoplay khi người dùng tương tác
             },
             loop: true,

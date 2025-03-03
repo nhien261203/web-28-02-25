@@ -37,12 +37,12 @@
                     <li class="nav-item">
                         <a  class="nav-link" href="{{route('user.index')}}"> User </a>
                     </li>
-
-
-
-
-
-
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('memberships.index') }}" >Membership</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('comments.index') }}" >Comment</a>
+                    </li>
 
                 </ul>
             </div>
@@ -59,15 +59,9 @@
             onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-success">
                 Đăng xuất
             </a>
-
-
-
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
             </form>
-
-
-
     </nav>
     <div class="container">
         @if (Session::has('success'))

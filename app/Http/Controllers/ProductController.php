@@ -69,7 +69,6 @@ class ProductController extends Controller
     public function show(string $id)
     {
 
-
         $product = Product::findOrFail($id);
         // lay comment de chuan bi hien thi len view
         $comments = Comment::where('product_id', $product->id)->orderBy('id', 'DESC')->get();

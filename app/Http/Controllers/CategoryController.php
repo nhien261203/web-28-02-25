@@ -85,6 +85,7 @@ class CategoryController extends Controller
         Comment::whereIn('product_id', $relatedProducts)->delete();
         $category->delete();
 
+
         return redirect()->route('category.index');
     }
 }

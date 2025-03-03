@@ -29,7 +29,7 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $order->user_id }}</td>
                         <td>{{ $order->status }}</td>
-                        <td>{{ $order->total_amount }}</td>
+                        <td>{{ number_format($order->total_amount) }}</td>
                         <td>
                             <a href="{{ route('orderUser.show', ['id' => $order->id]) }}">
                                 <button class="btn btn-success"><i class="fas fa-eye"></i></button>

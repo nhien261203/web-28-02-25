@@ -16,7 +16,7 @@
                     @else
                         <a  title="like" href="{{ route('admin.favorite', $products->id) }}"><i class="far fa-heart fa-sm"></i></a>
                     @endif
-                    
+
                 @endif
             </div>
 
@@ -24,6 +24,59 @@
             <h3 class="mt-4">CHI TIẾT SẢN PHẨM</h3>
             <p>{{ $products->content }}</p>
         </div>
+    </div>
+    <div class="row">
+        <div class="comments-section mt-4">
+            <h3 class="mb-4">Bình luận</h3>
+            @foreach ($comments as $comment)
+                <div class="card mb-3 shadow-sm">
+                    <div class="card-body">
+                        <h6 class="card-title text-primary mb-1">{{ $comment->name }}</h6>
+                        <p class="card-text">{{ $comment->comment }}</p>
+                        <small class="text-muted">Đăng vào: {{ $comment->created_at->format('d/m/Y H:i') }}</small>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+
+
+
+        @if(auth()->check())
+            <form action="{{ route('home.comment',['product_id' => $products->id]) }}" method="POST" class="p-4 border rounded shadow-sm">
+                @csrf
+                <h4 class="mb-3">BÌNH LUẬN - HỎI ĐÁP</h4>
+
+                <div class="form-group">
+                    <label for="comment">Hãy viết bình luận của bạn tại đây:</label>
+                    <textarea class="form-control" id="comment" name="comment" rows="4" placeholder="Nhập bình luận..." required></textarea>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="name">Họ tên</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Nhập họ tên" required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Nhập email" required>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-primary mt-4">Gửi bình luận</button>
+                    </div>
+                </div>
+
+
+            </form>
+
+        @else
+            <p><a href="{{ route('login') }}">Đăng nhập</a> để bình luận.</p>
+        @endif
+
     </div>
     <h3 class="mt-5">SẢN PHẨM VỪA XEM</h3>
     <div class="row">

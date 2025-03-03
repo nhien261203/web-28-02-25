@@ -13,6 +13,7 @@ use App\Http\Controllers\MembershipCardController;
 use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\UserController;
+use App\Models\Membership;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +43,7 @@ Route::group(['prefix'=> 'admin','middleware' => ['auth', 'role:admin']], functi
         'category' => CategoryController::class,
         'product' => ProductController::class,
         'user' => UserController::class,
+        'memberships' => MembershipController::class,
     ]);
 
     Route::get('/orders', [OrderController::class, 'index'])->name('order.index');
@@ -51,6 +53,11 @@ Route::group(['prefix'=> 'admin','middleware' => ['auth', 'role:admin']], functi
     Route::delete('/orders/{id}', [OrderController::class, 'destroy'])->name('order.destroy');
 
     Route::get('/contacts', [AdminController::class, 'contact'])->name('admin.contact');
+
+    // quan li comment
+    Route::get('/comments', [AdminController::class, 'showComments'])->name('comments.index');
+    Route::get('/comments/{id}/approve', [AdminController::class, 'approveComments'])->name('comments.approve');
+    Route::get('/comments/{id}/delete', [AdminController::class, 'deleteComments'])->name('comments.delete');
 
 });
 
@@ -78,8 +85,7 @@ Route::get('auth/google', [LoginGoogleController::class, 'redirectToGoogle'])->n
 
 Route::get('auth/google/callback', [LoginGoogleController::class, 'handleGoogleCallback']);
 
-//comments
-Route::post('/comment/{product_id}', [HomeController::class, 'post_comment'])->name('home.comment');
+
 
 
 // clear gio hang
@@ -150,6 +156,11 @@ Route::group(['prefix'=> 'home','middleware' => ['auth', 'role:user']], function
     // yeu thich cua user
     Route::get('/favorites', [HomeController::class, 'Favorite_user'])->name('user.favorites');
     Route::get('/membership', [HomeController::class, 'showMembership'])->name('membership.index');
+
+    //comments
+    Route::post('/comment/{product_id}', [HomeController::class, 'post_comment'])->name('home.comment');
+
+
 
 });
 

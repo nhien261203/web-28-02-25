@@ -15,13 +15,20 @@ class Comment extends Model
         'user_id',
         'product_id',
         'comment',
+        'status',
+        'name',
+        'email'
     ];
 
     // hien thi ten cua nguoi binh luan : day la phan lien quan den du lieu
 
     public function user()
     {
-        return $this->hasOne(User::class, 'id', 'user_id');
+        return $this->belongsTo(User::class);
+    }
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
     }
 
     // lay thong tin cua nguoi comment qua relationship

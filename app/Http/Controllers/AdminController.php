@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\VerifyEmail;
+use App\Models\Comment;
 use App\Models\Contact;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -102,7 +103,6 @@ class AdminController extends Controller
         if ($acc = User::create($data)) {
             Mail::to($acc->email)->send(new VerifyEmail($acc));
             // dd('ok');
-
             return redirect()->route('login')->with('ok', 'dang ki thanh cong, kiem tra email ');
         }
 
@@ -125,6 +125,27 @@ class AdminController extends Controller
 
         $contacts = Contact::all();
         return view('admin.contact', compact('contacts'));
+    }
+
+    // quan li comments
+    public function showComments()
+    {
+        $comments = Comment::with('user', 'product')->orderBy('created_at', 'DESC')->get();
+        return view('admin.comments.index', compact('comments'));
+    }
+
+    public function approveComments($id)
+    {
+        $comment = Comment::findOrFail($id);
+        $comment->update(['status' => 1]); // Duyệt bình luận
+
+        return redirect()->back()->with('success', 'Bình luận đã được duyệt.');
+    }
+
+    public function deleteComments($id)
+    {
+        Comment::findOrFail($id)->delete();
+        return redirect()->back()->with('success', 'Bình luận đã bị xóa.');
     }
 
 }

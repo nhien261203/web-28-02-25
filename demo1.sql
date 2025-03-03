@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Feb 26, 2025 at 04:00 AM
--- Server version: 8.2.0
+-- Generation Time: Mar 03, 2025 at 02:46 AM
+-- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -16,6 +16,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
+
 --
 -- Database: `project-shop3`
 --
@@ -41,11 +42,10 @@ CREATE TABLE `banners` (
 --
 
 INSERT INTO `banners` (`id`, `image`, `title`, `description`, `active`, `created_at`, `updated_at`) VALUES
-(1, 'https://phela.vn/wp-content/uploads/2025/01/LICH-HOAT-DONG-TET-2025_Cover-FB-scaled.jpg', 'lịch hoạt động tết', 'home-1', 1, NULL, NULL),
-(2, 'https://phela.vn/wp-content/uploads/2023/05/COVER-FACEBOOK-scaled.jpg', 'lụa đào', 'home-2', 1, NULL, NULL),
-(3, 'https://phela.vn/wp-content/uploads/2021/10/COVER-SI-MO-scaled.jpg', 'si mơ', 'home-3', 1, NULL, NULL),
-(4, 'https://phela.vn/wp-content/uploads/2021/07/banner-web-.jpg', 'nốt hương đặc sản', 'home-4', 1, NULL, NULL),
-(5, 'https://phela.vn/wp-content/uploads/2025/02/COVER-1-scaled.jpg', 'no content', 'home-5', 1, NULL, NULL);
+(1, 'https://phela.vn/wp-content/uploads/2023/12/1-Cover-Facebook-scaled.jpg', 'banner1', 'noi dung slide 1', 1, NULL, NULL),
+(2, 'https://phela.vn/wp-content/uploads/2025/02/COVER-1-scaled.jpg', 'banner2', 'content banner 2', 1, NULL, NULL),
+(3, 'https://phela.vn/wp-content/uploads/2021/10/COVER-SI-MO-scaled.jpg', 'banner 3', 'noi dung banner 3', 1, NULL, NULL),
+(4, 'https://phela.vn/wp-content/uploads/2021/07/banner-web-.jpg', 'banner 4', 'noi dung banner 4', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -66,9 +66,9 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `name`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'coffe', 1, '2024-12-26 03:42:15', '2024-12-26 03:42:15'),
-(2, 'Trà', 1, '2024-12-26 03:42:42', '2025-02-17 23:41:00'),
-(10, 'Khác', 1, '2025-02-18 00:01:36', '2025-02-18 00:01:36');
+(1, 'Coffe', 1, '2025-01-01 18:52:30', '2025-03-02 19:31:50'),
+(2, 'Tea', 1, '2025-01-01 18:52:38', '2025-03-02 19:31:40'),
+(3, 'Khac', 0, '2025-03-02 19:31:57', '2025-03-02 19:31:57');
 
 -- --------------------------------------------------------
 
@@ -85,6 +85,21 @@ CREATE TABLE `comments` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `comments`
+--
+
+INSERT INTO `comments` (`id`, `comment`, `user_id`, `product_id`, `created_at`, `updated_at`) VALUES
+(1, 'y', 1, 1, '2025-01-01 19:38:58', '2025-01-01 19:38:58'),
+(2, 'noi dung binh luan cua toi', 1, 2, '2025-01-01 19:41:08', '2025-01-01 19:41:08'),
+(3, 'coment 2', 1, 2, '2025-01-01 19:55:20', '2025-01-01 19:55:20'),
+(4, 'thanks', 2, 2, '2025-01-01 20:27:42', '2025-01-01 20:27:42'),
+(5, 'good', 2, 1, '2025-01-01 20:29:13', '2025-01-01 20:29:13'),
+(6, 'comment ve san pham a nay', 1, 2, '2025-01-02 00:58:57', '2025-01-02 00:58:57'),
+(7, 'comment new', 1, 2, '2025-01-02 01:06:45', '2025-01-02 01:06:45'),
+(8, 'jj', 1, 2, '2025-01-02 02:20:32', '2025-01-02 02:20:32'),
+(9, 'oke', 1, 2, '2025-01-03 02:13:59', '2025-01-03 02:13:59');
+
 -- --------------------------------------------------------
 
 --
@@ -99,15 +114,6 @@ CREATE TABLE `contacts` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `contacts`
---
-
-INSERT INTO `contacts` (`id`, `name`, `email`, `message`, `created_at`, `updated_at`) VALUES
-(1, 'nhien', 'dovannhien12345@gmail.com', 'content', '2025-02-25 00:59:20', '2025-02-25 00:59:20'),
-(2, 'user1', 'dovannhien12345@gmail.com', 'good', '2025-02-25 01:08:02', '2025-02-25 01:08:02'),
-(3, 'nhien', 'dovannhien12345@gmail.com', 'thing so', '2025-02-25 20:47:50', '2025-02-25 20:47:50');
 
 -- --------------------------------------------------------
 
@@ -163,10 +169,32 @@ CREATE TABLE `favorites` (
 --
 
 INSERT INTO `favorites` (`id`, `product_id`, `user_id`, `created_at`, `updated_at`) VALUES
-(12, 11, 1, '2025-02-21 01:19:06', '2025-02-21 01:19:06'),
-(13, 9, 1, '2025-02-24 19:34:35', '2025-02-24 19:34:35'),
-(14, 9, 4, '2025-02-25 02:32:24', '2025-02-25 02:32:24'),
-(15, 3, 16, '2025-02-25 20:51:19', '2025-02-25 20:51:19');
+(15, 1, 1, '2025-01-02 23:47:08', '2025-01-02 23:47:08'),
+(17, 1, 4, '2025-03-02 19:43:03', '2025-03-02 19:43:03'),
+(18, 3, 3, '2025-03-02 19:43:26', '2025-03-02 19:43:26');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `memberships`
+--
+
+CREATE TABLE `memberships` (
+  `id` bigint UNSIGNED NOT NULL,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `points` int NOT NULL DEFAULT '0',
+  `discount_rate` decimal(5,2) NOT NULL DEFAULT '0.00',
+  `membership_level` enum('Basic','Silver','Gold') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Basic',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `memberships`
+--
+
+INSERT INTO `memberships` (`id`, `user_id`, `points`, `discount_rate`, `membership_level`, `created_at`, `updated_at`) VALUES
+(1, 4, 6, '0.00', 'Basic', '2025-03-02 19:42:28', '2025-03-02 19:42:28');
 
 -- --------------------------------------------------------
 
@@ -185,22 +213,20 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(10, '2024_12_25_080811_create_categories_table', 1),
-(11, '2014_10_12_000000_create_users_table', 2),
-(12, '2014_10_12_100000_create_password_reset_tokens_table', 2),
-(13, '2019_08_19_000000_create_failed_jobs_table', 2),
-(14, '2019_12_14_000001_create_personal_access_tokens_table', 2),
-(15, '2024_12_25_085152_create_categories_table', 2),
-(16, '2024_12_25_085229_create_products_table', 2),
-(17, '2024_12_25_085321_create_comments_table', 2),
-(18, '2024_12_30_025707_create_orders_table', 3),
-(19, '2024_12_30_034943_add_name_and_image_to_order_product_table', 4),
-(20, '2024_12_30_040353_add_category_name_to_order_product_table', 5),
-(21, '2025_01_02_082516_create_favorites_table', 6),
-(22, '2025_02_17_021810_create_banners_table', 7),
-(23, '2025_02_18_025204_create_customers_table', 8),
-(24, '2025_02_25_075132_create_contacts_table', 9),
-(25, '2025_02_25_082345_add_role_to_users_table', 10);
+(1, '2014_10_12_000000_create_users_table', 1),
+(2, '2014_10_12_100000_create_password_reset_tokens_table', 1),
+(3, '2019_08_19_000000_create_failed_jobs_table', 1),
+(4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+(5, '2024_12_25_085152_create_categories_table', 1),
+(6, '2024_12_25_085229_create_products_table', 1),
+(7, '2024_12_25_085321_create_comments_table', 1),
+(8, '2024_12_30_025707_create_orders_table', 1),
+(9, '2025_01_02_082516_create_favorites_table', 2),
+(10, '2025_02_17_021810_create_banners_table', 3),
+(11, '2025_02_18_025204_create_customers_table', 3),
+(12, '2025_02_25_075132_create_contacts_table', 3),
+(13, '2025_02_25_082345_add_role_to_users_table', 3),
+(14, '2025_02_28_074057_create_memberships_table', 3);
 
 -- --------------------------------------------------------
 
@@ -222,18 +248,11 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `status`, `total_amount`, `created_at`, `updated_at`) VALUES
-(88, 1, 'pending', '68.00', '2025-02-20 23:44:11', '2025-02-20 23:44:11'),
-(89, 1, 'confirmed', '50.00', '2025-02-20 23:44:19', '2025-02-20 23:44:19'),
-(90, 1, 'confirmed', '100.00', '2025-02-20 23:47:11', '2025-02-20 23:47:11'),
-(91, 1, 'confirmed', '68.00', '2025-02-21 00:19:28', '2025-02-21 00:19:28'),
-(92, 1, 'confirmed', '118.00', '2025-02-21 00:57:44', '2025-02-21 00:57:44'),
-(95, 1, 'confirmed', '50.00', '2025-02-21 01:05:53', '2025-02-21 01:05:53'),
-(96, 1, 'confirmed', '80.00', '2025-02-21 01:07:30', '2025-02-21 01:07:30'),
-(101, 4, 'confirmed', '50.00', '2025-02-25 01:56:56', '2025-02-25 01:56:56'),
-(102, 16, 'pending', '50.00', '2025-02-25 20:31:04', '2025-02-25 20:31:04'),
-(106, 16, 'pending', '40.00', '2025-02-25 20:39:32', '2025-02-25 20:39:32'),
-(107, 16, 'pending', '50.00', '2025-02-25 20:41:07', '2025-02-25 20:41:07'),
-(108, 16, 'pending', '68.00', '2025-02-25 20:41:31', '2025-02-25 20:41:31');
+(1, 1, 'da xac nhan', '100.00', '2025-01-01 18:54:21', '2025-01-01 18:54:21'),
+(2, 2, 'pending', '22.00', '2025-01-01 21:08:52', '2025-01-01 21:08:52'),
+(3, 1, 'pending', '40.00', '2025-01-03 02:05:59', '2025-01-03 02:05:59'),
+(4, 1, 'da xac nhan', '40.00', '2025-01-03 02:06:18', '2025-01-03 02:06:18'),
+(5, 4, 'Chờ xác nhận', '60.00', '2025-03-02 19:42:28', '2025-03-02 19:42:28');
 
 -- --------------------------------------------------------
 
@@ -246,34 +265,23 @@ CREATE TABLE `order_product` (
   `order_id` bigint UNSIGNED NOT NULL,
   `product_id` bigint UNSIGNED NOT NULL,
   `quantity` int NOT NULL DEFAULT '1',
-  `price` decimal(10,2) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `category_id` bigint UNSIGNED DEFAULT NULL,
-  `category_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `price` decimal(10,2) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `order_product`
 --
 
-INSERT INTO `order_product` (`id`, `order_id`, `product_id`, `quantity`, `price`, `created_at`, `updated_at`, `name`, `image`, `category_id`, `category_name`) VALUES
-(48, 88, 10, 1, '68.00', '2025-02-20 23:44:11', '2025-02-20 23:44:11', 'Trà vỏ cà phê', 'images/products/SVL08bWW4cWyEZXD6my7sUSzXI7Pq39LSFcIePXo.jpg', NULL, NULL),
-(49, 89, 11, 1, '50.00', '2025-02-20 23:44:19', '2025-02-20 23:44:19', 'Matcha coco', NULL, NULL, NULL),
-(50, 90, 11, 1, '50.00', '2025-02-20 23:47:11', '2025-02-20 23:47:11', 'Matcha coco', NULL, NULL, NULL),
-(51, 90, 3, 1, '50.00', '2025-02-20 23:47:11', '2025-02-20 23:47:11', 'Ô long nhài sữa', NULL, NULL, NULL),
-(52, 91, 10, 1, '68.00', '2025-02-21 00:19:28', '2025-02-21 00:19:28', 'Trà vỏ cà phê', NULL, NULL, NULL),
-(53, 92, 10, 1, '68.00', '2025-02-21 00:57:44', '2025-02-21 00:57:44', 'Trà vỏ cà phê', NULL, NULL, NULL),
-(54, 92, 11, 1, '50.00', '2025-02-21 00:57:44', '2025-02-21 00:57:44', 'Matcha coco', NULL, NULL, NULL),
-(55, 95, 3, 1, '50.00', '2025-02-21 01:05:53', '2025-02-21 01:05:53', 'Ô long nhài sữa', NULL, NULL, NULL),
-(56, 96, 9, 1, '80.00', '2025-02-21 01:07:30', '2025-02-21 01:07:30', 'Trà lụa đào', NULL, NULL, NULL),
-(61, 101, 1, 1, '50.00', '2025-02-25 01:56:56', '2025-02-25 01:56:56', 'Cà phê nâu', NULL, NULL, NULL),
-(62, 102, 1, 1, '50.00', '2025-02-25 20:31:04', '2025-02-25 20:31:04', 'Cà phê nâu', 'images/products/DU6icK7k2fCj1qk7j5pfOJb7opHJgZ4bcldjrry0.jpg', NULL, NULL),
-(63, 106, 2, 1, '40.00', '2025-02-25 20:39:32', '2025-02-25 20:39:32', 'Cà phê đen', 'images/products/HOxhqKlJJvvAdTdO370lZnifJNzCTzFehxbZwxog.jpg', NULL, NULL),
-(64, 107, 3, 1, '50.00', '2025-02-25 20:41:07', '2025-02-25 20:41:07', 'Ô long nhài sữa', 'images/products/RQKkVQo1drL6glPV80Zgc8LtT7SZ5kDLkS9kBplf.jpg', NULL, NULL),
-(65, 108, 10, 1, '68.00', '2025-02-25 20:41:31', '2025-02-25 20:41:31', 'Trà vỏ cà phê', 'images/products/SVL08bWW4cWyEZXD6my7sUSzXI7Pq39LSFcIePXo.jpg', NULL, NULL);
+INSERT INTO `order_product` (`id`, `order_id`, `product_id`, `quantity`, `name`, `image`, `price`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 4, 'ca phe den', 'images/products/lXWKOFdOBibcdlZZ4CPnhF91wbQJYoZ6YVFXoSVJ.jpg', '25.00', NULL, NULL),
+(2, 2, 2, 1, 'tea1', 'images/products/KKz5zoLdpXrbIvGX6K28ZzujGSIy7W3fu7z4dBX2.png', '22.00', NULL, NULL),
+(3, 3, 3, 1, 'bac xiu', 'images/products/BX3zLydRnDquNLD9YqKct6tgx9VLDz5dGx8GYTLJ.jpg', '40.00', NULL, NULL),
+(4, 4, 3, 1, 'bac xiu', 'images/products/BX3zLydRnDquNLD9YqKct6tgx9VLDz5dGx8GYTLJ.jpg', '40.00', NULL, NULL),
+(5, 5, 2, 1, 'Ô long p', 'images/products/S2uA1Sra323cgNNahoN5I7OHZSZYvfb5zvhrSkC3.jpg', '60.00', '2025-03-02 19:42:28', '2025-03-02 19:42:28');
 
 -- --------------------------------------------------------
 
@@ -329,12 +337,11 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `image`, `price`, `content`, `category_id`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Cà phê nâu', 'images/products/DU6icK7k2fCj1qk7j5pfOJb7opHJgZ4bcldjrry0.jpg', 50.00, 'Phê Nâu có vị chua nhẹ tự nhiên của hạt Arabica Cầu Đất kết hợp cùng Robusta Gia Lai được tuyển chọn kỹ lưỡng, hoà quyện cùng sữa đặc đem đến hương vị đậm mượt và gần gũi.', 1, 0, '2024-12-26 07:28:41', '2025-02-17 23:52:49'),
-(2, 'Cà phê đen', 'images/products/HOxhqKlJJvvAdTdO370lZnifJNzCTzFehxbZwxog.jpg', 40.00, 'Cà Phê Đặc Sản với nốt hương: Peach - Orange - Juicy Body - Sweet Aftertaste With Chocolate. Sản phẩm có thể dùng nóng/đá.', 1, 0, '2024-12-26 08:24:39', '2025-02-17 23:50:02'),
-(3, 'Ô long nhài sữa', 'images/products/RQKkVQo1drL6glPV80Zgc8LtT7SZ5kDLkS9kBplf.jpg', 50.00, 'Ô Long Nhài Sữa là sự kết hợp hoàn hảo giừa Trà Ô Long Đặc Sản đậm đà cùng hương nhài thơm tinh tế, thêm chút thơm ngậy từ sữa.', 2, 0, '2024-12-26 01:53:37', '2025-02-17 23:48:52'),
-(9, 'Trà lụa đào', 'images/products/en26415ek9pgoxO44TGNmIYKiTvGxv1adGZAWT8r.jpg', 80.00, 'Trà Ô Long Lụa Đào thơm hoa ngọt ngào, kết hợp cùng Sữa Tươi Thanh Trùng Phê La & Đào Hồng dầm, thêm Thạch Trà Lụa Đào mềm dai mang đến trải nghiệm tươi mát & nhẹ nhàng.', 2, 1, '2025-02-17 23:56:46', '2025-02-17 23:56:46'),
-(10, 'Trà vỏ cà phê', 'images/products/SVL08bWW4cWyEZXD6my7sUSzXI7Pq39LSFcIePXo.jpg', 68.00, 'Trà Vỏ Cà Phê - thức uống độc đáo được làm từ vỏ quả cà phê, hương trà thơm nhẹ hòa quyện cùng vị chua dịu của chanh vàng', 2, 1, '2025-02-17 23:58:52', '2025-02-17 23:58:52'),
-(11, 'Matcha coco', 'images/products/0ukfTqZw2wTM7YVQ64o6WgaI5CbKRtOfjpBg4gCW.jpg', 50.00, 'Matcha Coco Latte với Lớp kem Ô Long Matcha bồng bềnh sánh mịn hoà quyện cùng sữa dừa Bến Tre hữu cơ ngọt thơm.', 10, 1, '2025-02-18 00:02:14', '2025-02-18 00:02:14');
+(1, 'Bạc xỉu', 'images/products/8SH5GC4oWOJDUGfozNiFuQUEb6j1bJ6IaHKbz61F.jpg', 45.00, 'Phê Truffle được sáng tạo từ Cà Phê Đậm Mượt và Kem Nấm Truffle Đen thơm ngậy, hương vị bùng nổ đầy phóng khoáng.', 1, 1, '2025-01-01 18:53:07', '2025-03-02 19:37:33'),
+(2, 'Ô long p', 'images/products/S2uA1Sra323cgNNahoN5I7OHZSZYvfb5zvhrSkC3.jpg', 60.00, '(Sản phẩm không đường) Chai 500ml. Plus - Cold Brew Trà Ô Long ủ lạnh, hậu vị ngọt và thanh mát.\r\nHSD 5 ngày từ NSX.\r\nBảo quản 2-5 độ C.\r\nLắc đều trước khi dùng.\r\nSử dụng trong vòng 24h sau khi mở nắp.', 2, 1, '2025-01-01 19:00:04', '2025-03-02 19:38:21'),
+(3, 'Cà phê đen', 'images/products/gjDk5iX53IZGIEkfAunM3rNbLKr9M54ZpSNU6o5l.jpg', 40.00, 'Phê Truffle được sáng tạo từ Cà Phê Đậm Mượt và Kem Nấm Truffle Đen thơm ngậy, hương vị bùng nổ đầy phóng khoáng.', 1, 1, '2025-01-02 03:08:57', '2025-03-02 19:36:54'),
+(4, 'Matcha coco', 'images/products/H7qstYjkVQZx3IEwVFoU7LIN7vbyGU0hj4gHToMR.jpg', 80.00, '(Sản phẩm không đường) Chai 500ml. Plus - Cold Brew Trà Ô Long ủ lạnh, hậu vị ngọt và thanh mát.\r\nHSD 5 ngày từ NSX.\r\nBảo quản 2-5 độ C.\r\nLắc đều trước khi dùng.\r\nSử dụng trong vòng 24h sau khi mở nắp.', 3, 1, '2025-03-02 19:38:44', '2025-03-02 19:38:44'),
+(5, 'Cold brew', 'images/products/UqR6nH5q3yLYaZI39yUDgT7zvbgonrKdLR4MdUlf.jpg', 25.00, '(100% đường) Lon 500ml. Ô Long Nhài Sữa là sự kết hợp Trà Ô Long đậm đà cùng hương nhài thơm tinh tế, thêm chút thơm ngậy từ sữa.\r\nHSD 3 ngày từ NSX.\r\nBảo quản 2-5 độ C.\r\nLắc đều trước khi dùng.\r\nSử dụng trong vòng 24h sau khi mở nắp.', 1, 1, '2025-03-02 19:41:52', '2025-03-02 19:41:52');
 
 -- --------------------------------------------------------
 
@@ -360,14 +367,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `google_id`, `role`) VALUES
-(1, 'nhien', 'nhien@gmail.com', NULL, '$2y$12$FWRfyG6B0BCwEPkCZgtiZu6FUETSRho1hieTSits8F7HENBfgUjNa', NULL, '2024-12-25 19:34:25', '2024-12-25 19:34:25', NULL, 'admin'),
-(2, 'nhien1', 'nhien1@gmail.com', NULL, '$2y$12$d4uN1oMjZ0H0kV1WYUZlvecZ8gRG2zeL5H9TavwFglVTeZ6PIUwca', NULL, '2024-12-31 01:11:00', '2024-12-31 01:11:00', NULL, 'admin'),
-(4, 'user2', 'user2@gmail.com', NULL, '$2y$12$xeGQZbY.kPn1PVC9TEOumeVwim1qcwP21HE9Jrul8BAzDSd/NmK7C', NULL, '2025-02-25 01:15:51', '2025-02-25 01:15:51', NULL, 'user'),
-(5, 'admin1', 'admin1@gmail.com', NULL, '$2y$12$ax8nDXdN9kEmph/YyE4IaOJUE5LSW5P/jNEOlusM.OO7Ml9eCact6', NULL, '2025-02-25 01:43:08', '2025-02-25 01:43:08', NULL, 'admin'),
-(6, 'tesst', 'test@gmail.com', NULL, '$2y$12$.oDceo/mx4rTHKjzl1rf6eiGe6nsqlNFL7506PEoj1CwRhVjw4obS', NULL, '2025-02-25 01:49:30', '2025-02-25 01:49:30', NULL, 'user'),
-(7, 'tesst1', 'test1@gmail.com', NULL, '$2y$12$PUkc/17.lkNxF3D2oTSCWOSuQ0ymFG6sSVX9LX6KQZS15ndZUKQFa', NULL, '2025-02-25 01:53:42', '2025-02-25 01:53:42', NULL, 'admin'),
-(14, 'nhien', '21012082@st.phenikaa-uni.edu.vn', '2025-02-25 20:16:36', '$2y$12$XT4s5IGgWMyx12bXRm/4EuXocBjMEZtmNSEx4PwRjuzG3m0ufv0DO', NULL, '2025-02-25 20:16:19', '2025-02-25 20:16:36', NULL, 'user'),
-(16, 'nhien', 'dovannhien12345@gmail.com', '2025-02-25 20:22:51', '$2y$12$rFkPAkHwwizuLMmpc.GTJeFEcTtq7F2ocJbhCnz59R4.zwryq5JM2', NULL, '2025-02-25 20:22:26', '2025-02-25 20:49:51', NULL, 'user');
+(1, 'nhien', 'nhien@gmail.com', NULL, '$2y$12$orJyyRfuP5nrAPreTUkJuOFSM/MH7b89wb/0gIbK.HKJNjkcQ1mfC', NULL, '2025-01-01 18:52:06', '2025-01-01 18:52:06', NULL, 'user'),
+(2, 'nhien2', 'nhien2@gmail.com', NULL, '$2y$12$0GZAYJQWnQPh7IPMiHEW..Ezkl4kI2kHflHPo3PpJVGbPxZr4k2aC', NULL, '2025-01-01 18:56:15', '2025-01-01 18:56:15', NULL, 'user'),
+(3, 'user1', '21012082@st.phenikaa-uni.edu.vn', '2025-03-02 19:17:31', '$2y$12$WF5BWISXVLdaUJA1oEnWeuedyiW0tzZEosSL0htT3e.dNwOu78lFC', NULL, '2025-03-02 19:17:13', '2025-03-02 19:17:31', NULL, 'user'),
+(4, 'admin1', 'dovannhien12345@gmail.com', '2025-03-02 19:18:42', '$2y$12$CTEbOsVCthqfIglzzhFWeun9H1pUAPdBA5J.vSoAtozW5WeSuTBRa', NULL, '2025-03-02 19:18:33', '2025-03-02 19:18:42', NULL, 'admin');
 
 --
 -- Indexes for dumped tables
@@ -424,6 +427,13 @@ ALTER TABLE `favorites`
   ADD KEY `favorites_user_id_foreign` (`user_id`);
 
 --
+-- Indexes for table `memberships`
+--
+ALTER TABLE `memberships`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `memberships_user_id_foreign` (`user_id`);
+
+--
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
@@ -442,8 +452,7 @@ ALTER TABLE `orders`
 ALTER TABLE `order_product`
   ADD PRIMARY KEY (`id`),
   ADD KEY `order_product_order_id_foreign` (`order_id`),
-  ADD KEY `order_product_product_id_foreign` (`product_id`),
-  ADD KEY `order_product_category_id_foreign` (`category_id`);
+  ADD KEY `order_product_product_id_foreign` (`product_id`);
 
 --
 -- Indexes for table `password_reset_tokens`
@@ -482,25 +491,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `banners`
 --
 ALTER TABLE `banners`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `contacts`
 --
 ALTER TABLE `contacts`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `customers`
@@ -518,25 +527,31 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `favorites`
 --
 ALTER TABLE `favorites`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT for table `memberships`
+--
+ALTER TABLE `memberships`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `order_product`
 --
 ALTER TABLE `order_product`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -548,13 +563,13 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
@@ -575,6 +590,12 @@ ALTER TABLE `favorites`
   ADD CONSTRAINT `favorites_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
+-- Constraints for table `memberships`
+--
+ALTER TABLE `memberships`
+  ADD CONSTRAINT `memberships_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
 -- Constraints for table `orders`
 --
 ALTER TABLE `orders`
@@ -584,7 +605,6 @@ ALTER TABLE `orders`
 -- Constraints for table `order_product`
 --
 ALTER TABLE `order_product`
-  ADD CONSTRAINT `order_product_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `order_product_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `order_product_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
 
@@ -598,8 +618,5 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-
--- tk admin 2101... mk: nhien
--- tk user user2... mk: user2
-
+-- tk user 2101.. mk:user1
+-- tk admin dovan.. mk:admin1

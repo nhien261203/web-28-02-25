@@ -13,7 +13,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ $favorite->product->name }}</h5>
                                 <p class="card-text">{{ $favorite->product->description }}</p>
-                                <p class="card-text"><strong>Price:</strong> ${{ $favorite->product->price }}</p>
+                                <p class="card-text"><strong>Price:</strong> {{ number_format($favorite->product->price) }} đ</p>
                                 <a href="{{ route('products.show', $favorite->product->id) }}" class="btn btn-primary">View Product</a>
                             </div>
                         </div>

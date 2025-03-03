@@ -56,13 +56,13 @@
                     @endphp
                     @if ($membership)
                         <tr>
-                            <th colspan="5" class="text-right">Giảm giá ({{ $membership->discount_rate }}%)</th>
-                            <th colspan="2">{{ sprintf('%.2f', $membership->calculateDiscount($cart->totalPrice)) }} VND</th>
+                            <th colspan="5" class="text-right">Giảm giá ({{ number_format($membership->discount_rate) }}%)</th>
+                            <th colspan="2">{{ number_format( $membership->calculateDiscount($cart->totalPrice)) }} VND</th>
                         </tr>
 
                         <tr>
                             <th colspan="5" class="text-right">Tổng tiền sau giảm giá</th>
-                            <th colspan="2">{{ sprintf('%.2f', $cart->getFinalTotalPrice(auth()->id())) }} VND</th>
+                            <th colspan="2">{{ number_format( $cart->getFinalTotalPrice(auth()->id())) }} VND</th>
                         </tr>
                     @endif
                 @endif

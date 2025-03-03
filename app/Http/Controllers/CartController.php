@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Cart;
-
 use Illuminate\Http\Request;
+
 
 class CartController extends Controller
 {
@@ -62,9 +62,7 @@ class CartController extends Controller
         $cart->createOrder($userId);
         return redirect()->route('products.index')->with('success', 'Đặt hàng thành công!');
     }
-
 }
-
 
 // PLACE ORDER
 // giai doan 1: kiem tra login, show thong tin khach hang len form

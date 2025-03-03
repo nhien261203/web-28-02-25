@@ -9,10 +9,10 @@ use App\Models\Membership;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
+
 class PaymentController extends Controller
 {
     public $items = [];
-
     public function vnpay_payment(Request $request)
     {
         $data = $request->all();
@@ -63,6 +63,7 @@ class PaymentController extends Controller
             } else {
                 $hashdata .= urlencode($key) . "=" . urlencode($value);
                 $i = 1;
+
             }
             $query .= urlencode($key) . "=" . urlencode($value) . '&';
         }
@@ -72,7 +73,6 @@ class PaymentController extends Controller
             $vnpSecureHash = hash_hmac('sha512', $hashdata, $vnp_HashSecret);
             $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
         }
-
         $returnData = [
             'code' => '00',
             'message' => 'success',
