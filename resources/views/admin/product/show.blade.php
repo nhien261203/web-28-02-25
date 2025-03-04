@@ -2,7 +2,7 @@
 
 @section('main')
 <h1>Chi tiet san pham: {{$product->name}}</h1>
-<a href="{{ route('cart.add', $product->id) }}" class="btn btn-success btn-xs">AddCart</a>
+{{-- <a href="{{ route('cart.add', $product->id) }}" class="btn btn-success btn-xs">AddCart</a> --}}
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">Giá: {{ $product->price }}</h5>
@@ -27,7 +27,7 @@
         </div>
         <hr>
 
-         <h3 >Comments</h3>
+         {{-- <h3 >Comments</h3>
 
         <form action="{{ route('home.comment', $product->id) }}" method="POST" role="form">
 
@@ -58,7 +58,7 @@
 
             @endcan
         </div>
-        @endforeach
+        @endforeach --}}
 
         {{-- @foreach ($comments as $com)
             <div class="media"></div>

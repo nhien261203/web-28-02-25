@@ -29,7 +29,7 @@
                         <a class="nav-link" href="{{ route('product.index') }}">Product</a>
                     </li>
                     <li class="nav-item">
-                        <a  class="nav-link" href="{{route('admin.favorite.index')}}"> My Favorites </a>
+                        <a  class="nav-link" href="{{route('admin.favorite.index')}}"> Favorites </a>
                     </li>
                     <li class="nav-item">
                         <a  class="nav-link" href="{{route('admin.contact')}}"> Contact </a>
@@ -56,7 +56,6 @@
             <a href="{{ route('cart.view') }}" class="btn btn-success" style="margin-right:2vw">
                 <i class="fas fa-shopping-cart"></i>
             </a>
-
             {{-- <a href="{{ route('admin.login') }}" class="btn btn-warning ">Dang xuat</a> --}}
             <a href="{{ route('logout') }}"
             onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-success">

@@ -12,7 +12,7 @@ class MembershipController extends Controller
     public function index()
     {
         $memberships = Membership::with('user')->orderBy('points', 'DESC')->paginate(10);
-        return view('memberships.index', compact('memberships'));
+        return view('admin.memberships.index', compact('memberships'));
     }
 
     // Hiển thị chi tiết một thành viên
@@ -23,14 +23,14 @@ class MembershipController extends Controller
         if ($membership) {
             $membership->updateMembershipLevel(); // Đảm bảo dữ liệu hiển thị mới nhất
         }
-        return view('memberships.show', compact('membership'));
+        return view('admin.memberships.show', compact('membership'));
     }
 
     // Form chỉnh sửa thành viên
     public function edit($id)
     {
         $membership = Membership::findOrFail($id);
-        return view('memberships.edit', compact('membership'));
+        return view('admin.memberships.edit', compact('membership'));
     }
 
     // Cập nhật cấp độ thành viên
@@ -55,4 +55,5 @@ class MembershipController extends Controller
         $membership->delete();
         return redirect()->route('memberships.index')->with('success', 'Xóa thành viên thành công!');
     }
+    
 }

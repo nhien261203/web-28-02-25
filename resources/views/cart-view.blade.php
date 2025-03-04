@@ -101,5 +101,16 @@
                 </form>
             </div>
         @endif
+        @if(auth()->check() && $cart->totalPrice > 0)
+            <div class="text-center mt-3 mb-2">
+                <form action="{{ route('generate.qr.payment') }}" method="GET">
+                    <button type="submit" class="btn btn-success btn-sm">Thanh toán bằng QR</button>
+                </form>
+            </div>
+
+        @else
+            <p>Giỏ hàng của bạn đang trống.</p>
+        @endif
+
     </div>
 @endsection

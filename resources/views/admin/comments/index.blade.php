@@ -21,7 +21,7 @@
                 <td>{{ $comment->comment }}</td>
 
                 <td>
-                    
+
                         @if ($comment->status)
                             <span class="text-success">Hiển thị</span>
                         @else
@@ -35,6 +35,7 @@
                         <a href="{{ route('comments.approve', $comment->id) }}" class="btn btn-primary">Duyệt</a>
                     @endif
                     <a href="{{ route('comments.delete', $comment->id) }}" class="btn btn-danger">Xóa</a>
+                    <a href="{{ route('comments.edit', $comment->id) }}" class="btn btn-danger">Chỉnh sửa</a>
                 </td>
             </tr>
         @endforeach

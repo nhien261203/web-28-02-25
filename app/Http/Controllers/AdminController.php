@@ -14,26 +14,29 @@ use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view('admin.index');
     }
 
-    public function login(){
+    public function login()
+    {
         return view('admin.login');
     }
 
-    public function check_login(){
+    public function check_login()
+    {
         request()->validate([
 
-            'email'=> 'required|email|exists:users',
+            'email' => 'required|email|exists:users',
             'password' => 'required',
         ]);
 
 
-        $data = request()->all('email','password');
+        $data = request()->all('email', 'password');
         // dd($data);
 
-        if(auth()->attempt($data)){
+        if (auth()->attempt($data)) {
             // return redirect()->route('home');
             $user = Auth::user();
             if (is_null($user->email_verified_at)) {
@@ -44,12 +47,10 @@ class AdminController extends Controller
         }
 
         return redirect()->back();
-
     }
     public function showChangePassword()
     {
         return view('admin.change-password');
-
     }
 
     public function ChangePassword(Request $req)
@@ -82,7 +83,8 @@ class AdminController extends Controller
         return redirect()->back()->with('no', 'Failed to change password');
     }
 
-    public function register(){
+    public function register()
+    {
         return view('admin.register');
     }
 
@@ -116,13 +118,15 @@ class AdminController extends Controller
 
         return redirect()->route('login')->with('success', 'Xác thực email thành công. Bạn có thể đăng nhập.');
     }
-    public function logout(Request $request){
+    public function logout(Request $request)
+    {
         Auth::logout();
 
         return redirect()->route('login');
     }
 
-    public function contact(){
+    public function contact()
+    {
 
         $contacts = Contact::all();
         return view('admin.contact', compact('contacts'));
@@ -149,5 +153,33 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Bình luận đã bị xóa.');
     }
 
+    // public function updateComments($id)
+    // {
+
+    // }
+    public function editComment($id)
+    {
+        $comment = Comment::findOrFail($id);
+        return view('admin.comments.edit', compact('comment'));
+    }
+
+    public function updateComment(Request $request, $id)
+    {
+        $request->validate([
+            'content' => 'required|string|max:1000',
+            'status' => 'required|in:0,1',
+        ]);
+
+        $comment = Comment::findOrFail($id);
+        $comment->update([
+            'comment' => $request->content,
+            'status' => $request->status,
+
+        ]);
+
+        return redirect()->route('comments.index')->with('success', 'Bình luận đã được cập nhật.');
+    }
+
     
+
 }

@@ -47,7 +47,7 @@
                 {{-- <td>
                     <a href="" class="sm"><i class="fas fa-heart" class="btn sm"></i></a>
                 </td> --}}
-                @if(auth()->check())
+                {{-- @if(auth()->check())
                 <td>
                     @if ($product->is_favorited)
                     <a title="no like" href="{{ route('admin.favorite', $product->id) }}"><i class="fas fa-heart" style="color: red;"></i></a>
@@ -55,7 +55,7 @@
                     <a  title="like" href="{{ route('admin.favorite', $product->id) }}"><i class="far fa-heart"></i></a>
                     @endif
                 </td>
-                @endif
+                @endif --}}
 
             </tr>
             @endforeach

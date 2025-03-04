@@ -62,10 +62,10 @@ Route::group(['prefix'=> 'admin','middleware' => ['auth', 'role:admin']], functi
     Route::get('/comments', [AdminController::class, 'showComments'])->name('comments.index');
     Route::get('/comments/{id}/approve', [AdminController::class, 'approveComments'])->name('comments.approve');
     Route::get('/comments/{id}/delete', [AdminController::class, 'deleteComments'])->name('comments.delete');
+    Route::get('/comments/{id}/edit', [AdminController::class, 'editComment'])->name('comments.edit');
+    Route::put('/comments/{id}/update', [AdminController::class, 'updateComment'])->name('comments.update');
 
 });
-
-
 
 // Route::get('login',[HomeController::class, 'login'])->name('home.login');
 // Route::post('/login',[HomeController::class, 'check_login'])
@@ -112,8 +112,12 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::post('/vnpay_payment', [PaymentController::class, 'vnpay_payment'])->name('vnpay_payment');
 Route::get('/vnpay_return', [PaymentController::class, 'paymentReturn'])->name('payment.return');
 
-
 Route::get('/payment-success', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
+
+// thanh toan qr-code
+Route::get('/generate-qr-payment', [PaymentController::class, 'generateQrPayment'])->name('generate.qr.payment');
+Route::get('/payment/qr/success', [PaymentController::class, 'qrPaymentSuccess'])->name('payment.qr.success');
+
 
 //dang nhap user
 // Route::get('/home/login',[HomeController::class, 'login'])->name('home.login');
