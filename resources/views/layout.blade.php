@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 
-
 </head>
 <body>
     <header>
@@ -30,7 +29,7 @@
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item"><a class="nav-link" href="{{ route('products.index') }}" >SẢN PHẨM</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{route('about')}}">CÂU CHUYỆN THƯƠNG HIỆU</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">TIN TỨC</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{route('user.blog')}}">TIN TỨC</a></li>
 
 
                         <li class="nav-item"><a class="nav-link" href="{{route('membership.index')}}">THẺ THÀNH VIÊN</a></li>

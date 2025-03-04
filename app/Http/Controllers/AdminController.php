@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\VerifyEmail;
+use App\Models\Blog;
 use App\Models\Comment;
 use App\Models\Contact;
 use Illuminate\Http\Request;
@@ -148,4 +149,5 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Bình luận đã bị xóa.');
     }
 
+    
 }

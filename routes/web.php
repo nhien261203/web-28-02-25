@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
@@ -44,6 +45,9 @@ Route::group(['prefix'=> 'admin','middleware' => ['auth', 'role:admin']], functi
         'product' => ProductController::class,
         'user' => UserController::class,
         'memberships' => MembershipController::class,
+        'blogs' => BlogController::class,
+
+
     ]);
 
     Route::get('/orders', [OrderController::class, 'index'])->name('order.index');
@@ -73,7 +77,6 @@ Route::group(['prefix'=> 'cart'], function(){
     Route::get('/delete/{id}', [CartController::class, 'deleteCart'])->name('cart.delete');
     Route::get('/update/{id}', [CartController::class, 'updateCart'])->name('cart.update');
 });
-
 
 Route::post('/cart/place-order', [OrderController::class, 'placeOrder'])->name('cart.placeOrder');
 
@@ -160,7 +163,9 @@ Route::group(['prefix'=> 'home','middleware' => ['auth', 'role:user']], function
     //comments
     Route::post('/comment/{product_id}', [HomeController::class, 'post_comment'])->name('home.comment');
 
-
+    // blogs
+    Route::get('/blogs', [HomeController::class, 'showBlog'])->name('user.blog');
+    Route::get('/blogs/{id}', [HomeController::class, 'showDetailBlog'])->name('user.showDetailBlog');
 
 });
 

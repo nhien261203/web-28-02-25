@@ -21,11 +21,13 @@
                 <td>{{ $comment->comment }}</td>
 
                 <td>
-                    @if ($comment->status == 1)
-                        <span class="badge badge-success">Đã duyệt</span>
-                    @else
-                        <span class="badge badge-warning">Chờ duyệt</span>
-                    @endif
+                    
+                        @if ($comment->status)
+                            <span class="text-success">Hiển thị</span>
+                        @else
+                            <span class="text-danger">Tạm ẩn</span>
+                        @endif
+
 
                 </td>
                 <td>

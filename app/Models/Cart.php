@@ -109,6 +109,7 @@ class Cart
         $this->updateMembershipPoints($userId, $this->getTotalPrice()); // Cập nhật điểm thành viên
         return $order;
     }
+
     public function getFinalTotalPrice($userId)
     {
         $totalPrice = $this->getTotalPrice();
@@ -122,22 +123,24 @@ class Cart
 
     private function updateMembershipPoints($userId, $orderTotal)
     {
+        // tim user da co the thanh vien chua
         $membership = Membership::where('user_id', $userId)->first();
 
-        $pointsToAdd = $orderTotal * 0.001;
+        // cach tinh diem
+        $pointsToAdd = $orderTotal * 0.001; // 1000vnd -> 1 diem
 
         if ($membership) {
-            $membership->points += $pointsToAdd;
-            $membership->updateMembershipLevel(); // Cập nhật cấp độ ngay lập tức
+            $membership->points += $pointsToAdd;// cong diem tu don hang
+            $membership->updateMembershipLevel(); // update hang the
             $membership->save();
         } else {
-            // Tạo mới và gán vào biến để sử dụng tiếp
+
             $membership = Membership::create([
                 'user_id' => $userId,
                 'points' => $pointsToAdd,
             ]);
 
-            if ($membership) { // Kiểm tra nếu đã tạo thành công
+            if ($membership) { // Kiểm tra nếu đã tạo thành công, update luon cho user
                 $membership->updateMembershipLevel();
                 $membership->save();
             }

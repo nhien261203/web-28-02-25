@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\VerifyEmail;
+use App\Models\Blog;
 use App\Models\Membership;
 use App\Models\Order;
 
@@ -374,5 +375,18 @@ class HomeController extends Controller
         $orders = Order::where('user_id', $user->id)->get();
 
         return view('home.membercard-user', compact('membership', 'orders'));
+    }
+
+    // hien thi tin tuc cho user
+    public function showBlog()
+    {
+        $news = Blog::where('status', 1)->get();
+        return view('home.blog', compact('news'));
+    }
+
+    public function showDetailBlog($id)
+    {
+        $blog = Blog::where('status', 1)->findOrFail($id);
+        return view('home.showDetailBlog', compact('blog'));
     }
 }

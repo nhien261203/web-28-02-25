@@ -29,7 +29,7 @@ class PaymentController extends Controller
         $vnp_TxnRef = date("YmdHis");
         $vnp_OrderInfo = "Thanh toán hóa đơn test";
         $vnp_OrderType = "billpayment";
-        $vnp_Amount = $totalAmount * 100000; // Sử dụng tổng tiền sau giảm giá
+        $vnp_Amount = $totalAmount * 100; // Sử dụng tổng tiền sau giảm giá
         $vnp_Locale = "vn";
         $vnp_BankCode = "NCB";
         $vnp_IpAddr = $request->ip();
@@ -63,7 +63,6 @@ class PaymentController extends Controller
             } else {
                 $hashdata .= urlencode($key) . "=" . urlencode($value);
                 $i = 1;
-
             }
             $query .= urlencode($key) . "=" . urlencode($value) . '&';
         }
@@ -78,17 +77,24 @@ class PaymentController extends Controller
             'message' => 'success',
             'data' => $vnp_Url
         ];
+        return redirect()->away($vnp_Url);
+    }
 
-        $cartItems = session('cart');
+    public function paymentSuccess(Request $request)
+    {
+        $vnp_ResponseCode = $request->get('vnp_ResponseCode');
+        $vnp_TxnRef = $request->get('vnp_TxnRef');
+        $vnp_Amount = $request->get('vnp_Amount') / 100;
 
-        if (isset($_POST['redirect'])) {
-            $order = new Order();
-            $order->user_id = $userId;
-            $order->total_amount = $totalAmount; // Sử dụng tổng tiền sau giảm giá
-            $order->status = 'Đã thanh toán';
-            $order->save();
-
-            foreach ($cartItems as $item) {
+        if ($vnp_ResponseCode == "00") {
+            $user = auth()->user();
+            $order = Order::create([
+                'user_id' => $user->id,
+                'total_amount' => $vnp_Amount,
+                'status' => 'Đã thanh toán'
+            ]);
+            // Lưu sản phẩm trong giỏ hàng vào đơn hàng
+            foreach (session('cart', []) as $item) {
                 $order->products()->attach($item['id'], [
                     'quantity' => $item['quantity'],
                     'price' => $item['price'],
@@ -96,23 +102,6 @@ class PaymentController extends Controller
                 ]);
             }
 
-            header('Location: ' . $vnp_Url);
-            die();
-            session()->forget('cart');
-        } else {
-            echo json_encode($returnData);
-        }
-    }
-
-    public function paymentSuccess(Request $request)
-    {
-        $vnp_ResponseCode = $request->get('vnp_ResponseCode');
-        $vnp_TxnRef = $request->get('vnp_TxnRef');
-        $vnp_Amount = $request->get('vnp_Amount') / 100000;
-
-        if ($vnp_ResponseCode == "00") {
-            $user = auth()->user();
-            $order = Order::where('user_id', $user->id)->latest()->first();
 
             Mail::to($user->email)->send(new PaymentSuccessMail($order, $user));
             session()->forget('cart');
