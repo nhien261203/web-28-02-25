@@ -38,6 +38,7 @@ class MembershipController extends Controller
     {
         $request->validate([
             'points' => 'required|numeric|min:0',
+
         ]);
 
         $membership = Membership::findOrFail($id);
@@ -55,5 +56,5 @@ class MembershipController extends Controller
         $membership->delete();
         return redirect()->route('memberships.index')->with('success', 'Xóa thành viên thành công!');
     }
-    
+
 }

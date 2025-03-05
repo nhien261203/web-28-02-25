@@ -233,7 +233,7 @@ class PaymentController extends Controller
         } else {
             $membership->membership_level = 'basic';
         }
-        
+
         $membership->updateMembershipLevel();
         $membership->save();
     }

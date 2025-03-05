@@ -71,3 +71,6 @@ class CartController extends Controller
 // huy gio hang
 // gui mail xac nhan
 // nguoi dung check mail xac nhan don hang
+
+
+// placeOrder: goi ham createOrder ben model Cart

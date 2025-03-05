@@ -115,6 +115,7 @@ class Cart
         $totalPrice = $this->getTotalPrice();
         $membership = Membership::where('user_id', $userId)->first();
 
+
         if ($membership) {
             return $totalPrice - $membership->calculateDiscount($totalPrice);
         }

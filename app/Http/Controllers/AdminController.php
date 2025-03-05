@@ -41,7 +41,7 @@ class AdminController extends Controller
             $user = Auth::user();
             if (is_null($user->email_verified_at)) {
                 Auth::logout();
-                return redirect()->route('login')->with('error', 'Email của bạn chưa được xác thực. Vui lòng kiểm tra email để xác thực tài khoản.');
+                return redirect()->route('login')->with('no', 'Email của bạn chưa được xác thực. Vui lòng kiểm tra email để xác thực tài khoản.');
             }
             return redirect()->route('order.index');
         }
@@ -121,6 +121,8 @@ class AdminController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
         return redirect()->route('login');
     }
@@ -180,6 +182,6 @@ class AdminController extends Controller
         return redirect()->route('comments.index')->with('success', 'Bình luận đã được cập nhật.');
     }
 
-    
+
 
 }

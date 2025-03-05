@@ -41,5 +41,34 @@
         </div>
 
     </div>
+    <div class="container">
+        @if (Session::has('success'))
+            <div class="alert alert-success mt-3" role="alert">
+                <h4 class="alert-heading">Thong bao</h4>
+                <p>{{ Session::get('success') }}</p>
+            </div>
+        @endif
+
+        @if (Session::has('warning'))
+            <div class="alert alert-warning mt-3" role="alert">
+                <h4 class="alert-heading">Thong bao</h4>
+                <p>{{ Session::get('warning') }}</p>
+            </div>
+        @endif
+
+        @if (Session::has('ok'))
+            <div class="alert alert-warning mt-3" role="alert">
+                <h4 class="alert-heading">Thong bao</h4>
+                <p>{{ Session::get('ok') }}</p>
+            </div>
+        @endif
+        @if (Session::has('no'))
+                <div class="alert alert-danger mt-3" role="alert">
+                    <h4 class="alert-heading">Thong bao</h4>
+                    <p>{{ Session::get('no') }}</p>
+                </div>
+        @endif
+        @yield('main')
+    </div>
 </body>
 </html>

@@ -81,6 +81,12 @@
                     <p>{{ Session::get('ok') }}</p>
                 </div>
             @endif
+            @if (Session::has('no'))
+                <div class="alert alert-danger mt-3" role="alert">
+                    <h4 class="alert-heading">Thong bao</h4>
+                    <p>{{ Session::get('no') }}</p>
+                </div>
+            @endif
             @yield('main')
         </div>
     </header>

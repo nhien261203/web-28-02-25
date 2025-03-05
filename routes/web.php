@@ -173,6 +173,11 @@ Route::group(['prefix'=> 'home','middleware' => ['auth', 'role:user']], function
 
 });
 
+// Get: lay du lieu: index lay du lieu tu dtb hien len man hinh
+// Post: tao moi du lieu : store de tao moi dl
+// PUT : cap nhat toan bo ban ghi: update all
+// PATCH: cap nhat 1 phan ban ghi : update 1 phan
+
 
 
 
