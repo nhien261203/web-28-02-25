@@ -98,7 +98,7 @@ class Cart
                 'image' => $item['image'],
             ]);
         }
-
+        
         session()->forget('cart');
         return $order;
     }

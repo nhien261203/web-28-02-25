@@ -4,8 +4,19 @@
 
 @section('content')
     <div class="container">
-        <h1>Hello {{ Auth::user()->name }}</h1>
-        <h2>Lịch sử các đơn đặt hàng của bạn</h2>
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="breadcrumb-content">
+
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mt-3">
+                            <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ Auth::user()->name}}: Các đơn hàng của bạn</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
         @if($orders->isEmpty())
             <p>Bạn chưa có đơn hàng nào.</p>
         @else
