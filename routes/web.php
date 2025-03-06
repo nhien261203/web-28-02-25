@@ -64,7 +64,6 @@ Route::group(['prefix'=> 'admin','middleware' => ['auth', 'role:admin']], functi
     Route::put('/comments/{id}/update', [AdminController::class, 'updateComment'])->name('comments.update');
 
 });
-
 // Route::get('login',[HomeController::class, 'login'])->name('home.login');
 // Route::post('/login',[HomeController::class, 'check_login'])
 

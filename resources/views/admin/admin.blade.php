@@ -52,10 +52,7 @@
 
             <a href="{{ route('password_admin.change')}}">Doi mat khau</a>
 
-            {{-- de totalQuantity len dau gio hang --}}
-            <a href="{{ route('cart.view') }}" class="btn btn-success" style="margin-right:2vw">
-                <i class="fas fa-shopping-cart"></i>
-            </a>
+
             {{-- <a href="{{ route('admin.login') }}" class="btn btn-warning ">Dang xuat</a> --}}
             <a href="{{ route('logout') }}"
             onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-success">

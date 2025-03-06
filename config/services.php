@@ -33,10 +33,9 @@ return [
 
     'google' => [
 
-        'client_id' => '383060873529-72ic2h1eqit3jpia8nmvg3igksn7f2ol.apps.googleusercontent.com',
-        'client_secret' => 'OCSPX-8kjxiKpI9XgOOCBzWjTzJkwTc-sv',
-        'redirect' => env('APP_URL').'/auth/google/callback',
-
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect' => env('GOOGLE_REDIRECT_URI'),
     ],
 
     'vnpay' => [

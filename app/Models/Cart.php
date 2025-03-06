@@ -118,6 +118,7 @@ class Cart
         if ($membership) {
             return $totalPrice - $membership->calculateDiscount($totalPrice);
         }
+
         return $totalPrice;
     }
 
@@ -128,9 +129,10 @@ class Cart
 
         // cach tinh diem
         $pointsToAdd = $orderTotal * 0.001; // 1000vnd -> 1 diem
-        
+
         if ($membership) {
             $membership->points += $pointsToAdd;// cong diem tu don hang
+
             $membership->updateMembershipLevel(); // update hang the
             $membership->save();
         } else {
@@ -147,3 +149,12 @@ class Cart
         }
     }
 }
+
+// b1: them san pham vao gio hnag add: kiem tra san pham da co chua
+// neu co chi tang so luong san pham
+
+// tinh tong tien private function getTotalPrice()
+// tinh gia cuoi public function getFinalTotalPrice($userId)
+
+// Dat hang va luu vao dtb
+// b1: goi placeOrder() de luu don hang, Gọi updateMembershipPoints($userId, $this->getTotalPrice()) để cập nhật điểm thành viên.

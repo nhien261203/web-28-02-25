@@ -20,13 +20,9 @@ class OrderController extends Controller
 
         // Call the public method to place the order
         $order = $cart->createOrder(auth()->id());
-
-        // cap nhat diem khi dat hang : start
         $user = auth()->user();
 
-
         Mail::to($order->user->email)->send(new OrderMail($order));
-
 
         return redirect()->route('products.index')->with('success', 'Order placed successfully.');
     }
