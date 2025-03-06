@@ -1,6 +1,19 @@
 @extends('layout')
 @section('content')
     <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="breadcrumb-content">
+                    {{-- <h2 class="title">Change Password</h2> --}}
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mt-3">
+                            <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Yêu thích sản phẩm</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
         @if($favorites->isEmpty())
             <p>Bạn chưa yêu thích sản phẩm nào.</p>
         @else

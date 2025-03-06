@@ -115,7 +115,6 @@ class Cart
         $totalPrice = $this->getTotalPrice();
         $membership = Membership::where('user_id', $userId)->first();
 
-
         if ($membership) {
             return $totalPrice - $membership->calculateDiscount($totalPrice);
         }
@@ -129,7 +128,7 @@ class Cart
 
         // cach tinh diem
         $pointsToAdd = $orderTotal * 0.001; // 1000vnd -> 1 diem
-
+        
         if ($membership) {
             $membership->points += $pointsToAdd;// cong diem tu don hang
             $membership->updateMembershipLevel(); // update hang the

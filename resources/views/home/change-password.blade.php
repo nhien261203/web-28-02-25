@@ -10,9 +10,9 @@
             <div class="row">
                 <div class="col-lg-5">
                     <div class="breadcrumb-content">
-                        <h2 class="title">Change Password</h2>
+                        {{-- <h2 class="title">Change Password</h2> --}}
                         <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
+                            <ol class="breadcrumb mt-3">
                                 <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Change Password</li>
                             </ol>
@@ -30,7 +30,7 @@
        <div class="">
          <div class="contact-wrap">
             <div class="container">
-                <div class="row align-items-center">
+                <div class="row align-items-center text-center">
                     <div class="col-lg-12">
                         <div class="contact-content">
                             <div class="section-title mb-15">
@@ -44,7 +44,7 @@
 
 
 
-                                    <div class="form-grp">
+                                    <div class="form-grp mb-2">
                                         <input name="old_password" type="password" placeholder="Old Password *" required>
                                         @error('old_password')
                                             <small class="help-block">{{$message}}</small>
@@ -52,7 +52,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="form-grp">
+                                    <div class="form-grp mb-2">
                                         <input name="password" type="password" placeholder="Your Password *" required>
                                         @error('password')
                                             <small class="help-block">{{$message}}</small>
@@ -60,7 +60,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="form-grp">
+                                    <div class="form-grp mb-2">
                                         <input name="confirm_password" type="password" placeholder="Your Confirm Password *" required>
                                         @error('confirm_password')
                                             <small class="help-block">{{$message}}</small>
@@ -72,7 +72,7 @@
 
 
 
-                                    <button type="submit">Change</button>
+                                    <button type="submit" class="mb-3">Change</button>
                                 </div>
                             </form>
                             <p class="ajax-response mb-0"></p>

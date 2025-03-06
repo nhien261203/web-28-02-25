@@ -3,8 +3,8 @@
 @extends('admin.admin')
 
 @section('main')
-    <h1>hello home admin</h1>
-    <h2>Lịch sử các đơn đặt hàng</h2>
+    {{-- <h1>hello home admin</h1> --}}
+    <h2>Các đơn đặt hàng</h2>
 
     <!-- Navbar cho trạng thái đơn hàng -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">

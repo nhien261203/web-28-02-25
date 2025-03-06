@@ -2,13 +2,26 @@
 
 @section('content')
 <div class="container">
+    <div class="row">
+        <div class="col-lg-5">
+            <div class="breadcrumb-content">
+                {{-- <h2 class="title">Change Password</h2> --}}
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mt-3">
+                        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Liên hệ</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">Liên hệ</div>
 
                 <div class="card-body">
-                    
+
 
                     <form method="POST" action="{{ route('contact.submit') }}">
                         @csrf

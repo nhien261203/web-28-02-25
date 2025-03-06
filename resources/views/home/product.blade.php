@@ -7,6 +7,19 @@
     <img src="https://tocotocotea.com/wp-content/themes/tocotocotea/assets/images/button_delivery.png" alt="" >
 </a>
 <div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-5">
+            <div class="breadcrumb-content">
+                {{-- <h2 class="title">Change Password</h2> --}}
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mt-3">
+                        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Sản Phẩm</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
     <!-- Price Filter Form -->
     <form action="{{ route('products.index') }}" method="GET" class="mt-3">
         <h4>Lọc theo giá</h4>
@@ -55,7 +68,7 @@
                             <div class="card-body text-center">
                                 <h5 class="card-title">{{ $product->name }}</h5>
                                 <p class="price">{{ number_format($product->price, 0) }} đ</p>
-                                
+
                                 <a href="{{ route('products.show', $product->id) }}" class="btn btn-buy">Mua ngay</a>
                                 </div>
                             </div>

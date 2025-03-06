@@ -16,6 +16,8 @@ class LoginGoogleController extends Controller
     public function redirectToGoogle()
     {
         return Socialite::driver('google')->redirect();
+       
+
     }
     public function handleGoogleCallback()
     {
@@ -23,6 +25,7 @@ class LoginGoogleController extends Controller
 
             $user = Socialite::driver('google')->user();
             $finduser = User::where('google_id', $user->id)->first();
+
             if($finduser){
                 Auth::login($finduser);
                 return redirect()->route('admin.index');
@@ -36,7 +39,6 @@ class LoginGoogleController extends Controller
                 Auth::login($newUser);
 
                 return redirect()->route('/admin.index');
-
             }
 
         } catch (Exception $e) {

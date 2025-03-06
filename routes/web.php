@@ -46,8 +46,6 @@ Route::group(['prefix'=> 'admin','middleware' => ['auth', 'role:admin']], functi
         'user' => UserController::class,
         'memberships' => MembershipController::class,
         'blogs' => BlogController::class,
-
-
     ]);
 
     Route::get('/orders', [OrderController::class, 'index'])->name('order.index');
@@ -81,15 +79,10 @@ Route::group(['prefix'=> 'cart'], function(){
 Route::post('/cart/place-order', [OrderController::class, 'placeOrder'])->name('cart.placeOrder');
 
 
-
-
 //login by gg account
 Route::get('auth/google', [LoginGoogleController::class, 'redirectToGoogle'])->name('login-by-google');
 
 Route::get('auth/google/callback', [LoginGoogleController::class, 'handleGoogleCallback']);
-
-
-
 
 // clear gio hang
 Route::get('/clear', [CartController::class, 'clearCart'])->name('cart.clear');
@@ -127,6 +120,7 @@ Route::get('/payment/qr/success', [PaymentController::class, 'qrPaymentSuccess']
 // Route::post('/home/register',[HomeController::class, 'check_register']);
 // Route::get('/home/logout', [HomeController::class, 'logout'])->name('home.logout');
 // Route::post('/home/logout', [HomeController::class, 'logout'])->name('home.logout');
+
 Route::get('/verify-account/{email}', [HomeController::class, 'verify'])->name('account.verify');
 
 Route::get('/login',[AdminController::class, 'login'])->name('login');
@@ -141,7 +135,6 @@ Route::get('/admin/change-password', [AdminController::class, 'showChangePassWor
 Route::post('/admin/change-password', [AdminController::class,'ChangePassword'])->name('password_admin.update');
 
 Route::group(['prefix'=> 'home','middleware' => ['auth', 'role:user']], function(){
-
 
     Route::get('orders', [OrderController::class, 'userOrders'])->name('user.orders');
     Route::get('/order/{id}', [OrderController::class, 'showOrderUsers'])->name('orderUser.show');
@@ -170,7 +163,6 @@ Route::group(['prefix'=> 'home','middleware' => ['auth', 'role:user']], function
     // blogs
     Route::get('/blogs', [HomeController::class, 'showBlog'])->name('user.blog');
     Route::get('/blogs/{id}', [HomeController::class, 'showDetailBlog'])->name('user.showDetailBlog');
-
 });
 
 // Get: lay du lieu: index lay du lieu tu dtb hien len man hinh
