@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 06, 2025 at 06:55 AM
+-- Generation Time: Mar 07, 2025 at 08:07 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -213,7 +213,7 @@ CREATE TABLE `memberships` (
 --
 
 INSERT INTO `memberships` (`id`, `user_id`, `points`, `discount_rate`, `membership_level`, `created_at`, `updated_at`) VALUES
-(18, 4, 243, '5.00', 'Silver', '2025-03-04 02:09:47', '2025-03-04 19:23:00');
+(19, 3, 40, '0.00', 'Basic', '2025-03-06 02:26:47', '2025-03-06 02:26:47');
 
 -- --------------------------------------------------------
 
@@ -271,11 +271,7 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `status`, `total_amount`, `created_at`, `updated_at`) VALUES
-(44, 3, 'Đã thanh toán', '90000.00', '2025-03-04 00:36:57', '2025-03-04 00:36:57'),
-(45, 3, 'Chờ xác nhận', '40000.00', '2025-03-04 00:37:59', '2025-03-04 00:37:59'),
-(46, 3, 'Đã thanh toán', '60000.00', '2025-03-04 00:38:34', '2025-03-04 00:38:34'),
-(52, 4, 'Đã thanh toán', '200000.00', '2025-03-04 02:09:46', '2025-03-04 02:09:46'),
-(53, 4, 'Đã thanh toán', '42750.00', '2025-03-04 03:13:06', '2025-03-04 03:13:06');
+(54, 3, 'Chờ xác nhận', '40000.00', '2025-03-06 02:26:47', '2025-03-06 02:26:47');
 
 -- --------------------------------------------------------
 
@@ -300,11 +296,7 @@ CREATE TABLE `order_product` (
 --
 
 INSERT INTO `order_product` (`id`, `order_id`, `product_id`, `quantity`, `name`, `image`, `price`, `created_at`, `updated_at`) VALUES
-(46, 44, 1, 2, 'Bạc xỉu', NULL, '45000.00', '2025-03-04 00:36:57', '2025-03-04 00:36:57'),
-(47, 45, 3, 1, 'Cà phê đen', 'images/products/gjDk5iX53IZGIEkfAunM3rNbLKr9M54ZpSNU6o5l.jpg', '40000.00', '2025-03-04 00:37:59', '2025-03-04 00:37:59'),
-(48, 46, 2, 1, 'Ô long p', NULL, '60000.00', '2025-03-04 00:38:34', '2025-03-04 00:38:34'),
-(54, 52, 3, 5, 'Cà phê đen', NULL, '40000.00', '2025-03-04 02:09:47', '2025-03-04 02:09:47'),
-(55, 53, 1, 1, 'Bạc xỉu', NULL, '45000.00', '2025-03-04 03:13:06', '2025-03-04 03:13:06');
+(56, 54, 3, 1, 'Cà phê đen', 'images/products/gjDk5iX53IZGIEkfAunM3rNbLKr9M54ZpSNU6o5l.jpg', '40000.00', '2025-03-06 02:26:47', '2025-03-06 02:26:47');
 
 -- --------------------------------------------------------
 
@@ -569,7 +561,7 @@ ALTER TABLE `favorites`
 -- AUTO_INCREMENT for table `memberships`
 --
 ALTER TABLE `memberships`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -581,13 +573,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT for table `order_product`
 --
 ALTER TABLE `order_product`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`

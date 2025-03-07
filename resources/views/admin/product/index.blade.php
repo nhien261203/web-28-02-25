@@ -5,9 +5,7 @@
 
 @section('main')
     <h1>Product List</h1>
-    {{-- @foreach($products as $product)
-        <p>{{ $product->name }}</p>
-    @endforeach --}}
+    
     <a href="{{ route('product.create')  }}" class="btn btn-success"><i class="fas fa-plus"></i></a>
     <table class="table table-hover">
         <thead>

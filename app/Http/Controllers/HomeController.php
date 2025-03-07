@@ -269,7 +269,6 @@ class HomeController extends Controller
         $minPrice = $request->input('min_price');
         $maxPrice = $request->input('max_price');
 
-        // Kiểm tra giá trị hợp lệ
         if (($minPrice !== null && !is_numeric($minPrice)) || ($maxPrice !== null && !is_numeric($maxPrice))) {
             return redirect()->back();
         }
@@ -289,7 +288,6 @@ class HomeController extends Controller
 
         $products = $query->with('category')->get();
 
-        // Lọc danh mục chỉ hiển thị những danh mục có sản phẩm thỏa mãn điều kiện lọc
         $categoryIds = $products->pluck('category_id')->unique();
         $categories = Category::where('status', 1)
             ->whereIn('id', $categoryIds)
@@ -309,7 +307,6 @@ class HomeController extends Controller
         return view('home.product', compact('products', 'categories', 'banners'));
     }
 
-    // ... other code ...
 
     public function about()
     {

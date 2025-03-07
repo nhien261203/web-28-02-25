@@ -50,17 +50,29 @@
                 </ul>
             </div>
 
-            <a href="{{ route('password_admin.change')}}">Doi mat khau</a>
+            <div class="dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Xin chào, {{ Auth::user()->name }}
+                </a>
+                <div class="dropdown-menu">
+                    <a href="{{ route('password_admin.change')}}" class="dropdown-item">Doi mat khau</a>
 
 
-            {{-- <a href="{{ route('admin.login') }}" class="btn btn-warning ">Dang xuat</a> --}}
-            <a href="{{ route('logout') }}"
-            onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-success">
-                Đăng xuất
-            </a>
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                @csrf
-            </form>
+
+                    <a href="{{ route('logout') }}"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-success dropdown-item">
+                        Đăng xuất
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </div>
+            </div>
+
+
+
+
+
     </nav>
     <div class="container">
         @if (Session::has('success'))

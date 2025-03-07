@@ -98,7 +98,7 @@ class Cart
                 'image' => $item['image'],
             ]);
         }
-        
+
         session()->forget('cart');
         return $order;
     }
@@ -136,7 +136,6 @@ class Cart
             $membership->updateMembershipLevel(); // update hang the
             $membership->save();
         } else {
-
             $membership = Membership::create([
                 'user_id' => $userId,
                 'points' => $pointsToAdd,
@@ -150,7 +149,7 @@ class Cart
     }
 }
 
-// b1: them san pham vao gio hnag add: kiem tra san pham da co chua
+// b1: them san pham vao gio hang add: kiem tra san pham da co chua
 // neu co chi tang so luong san pham
 
 // tinh tong tien private function getTotalPrice()

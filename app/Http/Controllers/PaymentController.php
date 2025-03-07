@@ -10,7 +10,6 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
-
 class PaymentController extends Controller
 {
     public $items = [];
@@ -27,7 +26,9 @@ class PaymentController extends Controller
         $vnp_HashSecret = "IY1BW043BVONGBNI083QQL7GTFH830Y5";
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
         $vnp_Returnurl = config('services.vnpay.return_url');
+
         $vnp_TxnRef = date("YmdHis");
+
         $vnp_OrderInfo = "Thanh toán hóa đơn test";
         $vnp_OrderType = "billpayment";
         $vnp_Amount = $totalAmount * 100; // Sử dụng tổng tiền sau giảm giá
@@ -55,6 +56,7 @@ class PaymentController extends Controller
         }
 
         ksort($inputData);
+
         $query = "";
         $i = 0;
         $hashdata = "";
@@ -132,6 +134,7 @@ class PaymentController extends Controller
         $vnp_Returnurl = config('services.vnpay.return_url');
         $vnp_TxnRef = now()->format('YmdHis');
         $vnp_Amount = $totalAmount * 100;
+
         $vnp_OrderInfo = "Thanh toán đơn hàng #" . $vnp_TxnRef;
         $vnp_Locale = "vn";
         $vnp_IpAddr = request()->ip();
@@ -152,9 +155,10 @@ class PaymentController extends Controller
         ];
 
         ksort($inputData);
-        $query = "";
-        $i = 0;
-        $hashdata = "";
+
+        $query = "" ;
+        $i = 0 ;
+        $hashdata = "" ;
 
         foreach ($inputData as $key => $value) {
             if ($i == 1) {

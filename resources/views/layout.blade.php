@@ -21,7 +21,7 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-custom">
             <div class="container">
-                <a class="navbar-brand" href="{{route('home')}}">Phê-La</a>
+                <a class="navbar-brand" href="{{ route('home') }}">Phê-La</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -37,14 +37,15 @@
                         <li class="nav-item"><a class="nav-link" href="{{route('user.orders')}}">ĐƠN HÀNG ĐÃ MUA</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{route('user.favorites')}}">YÊU THÍCH SẢN PHẨM</a></li>
                         @auth
-                            <li class="nav-item dropdown menu-hello">
+                            <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Xin chào, {{ Auth::user()->name }}
                                 </a>
-                                <ul >
-                                    <li><a  href="{{route('password.change')}}">Đổi mật khẩu</a></li>
+
+                                <ul  aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="{{route('password.change')}}">Đổi mật khẩu</a></li>
                                     <li>
-                                        <a href="{{ route('logout') }}"
+                                        <a  href="{{ route('logout') }}"
                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                                             class="dropdown-item">
                                             Đăng xuất
@@ -55,6 +56,9 @@
                                     @csrf
                                 </form>
                             </li>
+
+
+
                         @endauth
                     </ul>
                 </div>
